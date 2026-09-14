@@ -74,7 +74,7 @@ function TextField({
 }) {
   return (
     <label className="block">
-      <span className="text-sm font-bold text-[#344054]">{label}</span>
+      <span className="text-sm font-semibold text-[#344054]">{label}</span>
       <span className="mt-1.5 flex items-center gap-2.5 rounded-lg border border-[#C8D0DD] bg-white px-3 py-2 focus-within:border-[#0E3FA8]">
         <Icon name={icon} className="h-4 w-4 shrink-0 text-[#667085]" />
         <input
@@ -95,11 +95,11 @@ function DocumentUpload({ label, helper }: { label: string; helper: string }) {
           <Icon name="upload" className="h-4 w-4" />
         </span>
         <span className="min-w-0">
-          <span className="block text-sm font-black text-[#132033]">{label}</span>
+          <span className="block text-sm font-semibold text-[#132033]">{label}</span>
           <span className="mt-0.5 block text-[11px] leading-4 text-[#667085]">{helper}</span>
         </span>
       </span>
-      <input type="file" accept="image/*,.pdf" className="mt-3 block w-full text-xs text-[#526176] file:mr-3 file:rounded-lg file:border-0 file:bg-[#0E3FA8] file:px-3 file:py-1.5 file:text-xs file:font-bold file:text-white" />
+      <input type="file" accept="image/*,.pdf" className="mt-3 block w-full text-xs text-[#526176] file:mr-3 file:rounded-lg file:border-0 file:bg-[#0E3FA8] file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white" />
     </label>
   );
 }
@@ -119,15 +119,15 @@ export default function RegisterPage() {
               className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#10213D]/90 via-[#10213D]/45 to-transparent" />
-            <Link href="/" className="absolute left-5 top-5 text-xl font-black tracking-tight text-white">
+            <Link href="/" className="absolute left-5 top-5 text-xl font-semibold tracking-tight text-white">
               RentGo
             </Link>
             <div className="absolute bottom-5 left-5 right-5 text-white sm:bottom-6 sm:left-6 sm:right-6">
-              <h1 className="max-w-sm text-2xl font-black leading-tight sm:text-3xl">
+              <h1 className="max-w-sm text-2xl font-bold leading-tight sm:text-3xl">
                 Siapkan akun dan dokumen sebelum booking.
               </h1>
               <div className="mt-5 rounded-xl bg-white/12 p-4 backdrop-blur">
-                <p className="flex items-center gap-2.5 text-xs font-bold leading-5 text-white">
+                <p className="flex items-center gap-2.5 text-xs font-semibold leading-5 text-white">
                   <Icon name="shield" className="h-4 w-4 text-[#75D09B]" />
                   KTP dan SIM akan digunakan untuk proses verifikasi admin.
                 </p>
@@ -138,8 +138,8 @@ export default function RegisterPage() {
           <div className="flex items-center p-5 sm:p-6 lg:p-8">
             <div className="w-full">
               <div>
-                <p className="text-sm font-black text-[#147C4C]">Register RentGo</p>
-                <h2 className="mt-2 text-2xl font-black tracking-tight text-[#132033]">
+                <p className="text-sm font-semibold text-[#147C4C]">Register RentGo</p>
+                <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[#132033]">
                   Buat akun pelanggan
                 </h2>
                 <p className="mt-2 text-sm leading-6 text-[#526176]">
@@ -156,7 +156,7 @@ export default function RegisterPage() {
                 </div>
 
                 <div>
-                  <h3 className="text-base font-black text-[#132033]">Dokumen identitas</h3>
+                  <h3 className="text-base font-semibold text-[#132033]">Dokumen identitas</h3>
                   <p className="mt-1 text-xs leading-5 text-[#667085]">
                     Dokumen wajib diunggah sebelum admin mengonfirmasi pemesanan kendaraan.
                   </p>
@@ -171,14 +171,14 @@ export default function RegisterPage() {
                   Saya menyatakan data dan dokumen yang diunggah benar serta dapat dipertanggungjawabkan.
                 </label>
 
-                <Link href="/profile" className="block w-full rounded-lg bg-[#0E3FA8] px-5 py-3 text-center text-sm font-black text-white">
+                <Link href="/profile" className="block w-full rounded-lg bg-[#0E3FA8] px-5 py-3 text-center text-sm font-semibold text-white">
                   Register
                 </Link>
               </form>
 
               <p className="mt-5 text-center text-sm text-[#526176]">
                 Sudah punya akun?{" "}
-                <Link href="/login" className="font-black text-[#0E3FA8]">
+                <Link href="/login" className="font-semibold text-[#0E3FA8]">
                   Login
                 </Link>
               </p>

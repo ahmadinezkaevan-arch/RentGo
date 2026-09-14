@@ -55,11 +55,11 @@ export default function LoginPage() {
               className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#10213D]/88 via-[#10213D]/40 to-transparent" />
-            <Link href="/" className="absolute left-5 top-5 text-xl font-black tracking-tight text-white">
+            <Link href="/" className="absolute left-5 top-5 text-xl font-semibold tracking-tight text-white">
               RentGo
             </Link>
             <div className="absolute bottom-5 left-5 right-5 text-white sm:bottom-6 sm:left-6 sm:right-6">
-              <h1 className="max-w-sm text-2xl font-black leading-tight sm:text-3xl">
+              <h1 className="max-w-sm text-2xl font-bold leading-tight sm:text-3xl">
                 Kelola perjalanan Anda dengan satu akun.
               </h1>
               <ul className="mt-5 space-y-2 text-xs text-blue-50">
@@ -78,8 +78,8 @@ export default function LoginPage() {
           <div className="flex items-center p-5 sm:p-6 lg:p-8">
             <div className="w-full">
             <div>
-              <p className="text-sm font-black text-[#147C4C]">Login RentGo</p>
-              <h2 className="mt-2 text-2xl font-black tracking-tight text-[#132033]">
+              <p className="text-sm font-semibold text-[#147C4C]">Login RentGo</p>
+              <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[#132033]">
                 Masuk ke akun Anda
               </h2>
               <p className="mt-2 text-sm leading-6 text-[#526176]">
@@ -89,7 +89,7 @@ export default function LoginPage() {
 
             <form className="mt-6 space-y-4">
               <label className="block">
-                <span className="text-sm font-bold text-[#344054]">Email</span>
+                <span className="text-sm font-semibold text-[#344054]">Email</span>
                 <span className="mt-2 flex items-center gap-3 rounded-lg border border-[#C8D0DD] bg-white px-3.5 py-2.5 focus-within:border-[#0E3FA8]">
                   <Icon name="mail" className="h-5 w-5 shrink-0 text-[#667085]" />
                   <input
@@ -101,7 +101,7 @@ export default function LoginPage() {
               </label>
 
               <label className="block">
-                <span className="text-sm font-bold text-[#344054]">Password</span>
+                <span className="text-sm font-semibold text-[#344054]">Password</span>
                 <span className="mt-2 flex items-center gap-3 rounded-lg border border-[#C8D0DD] bg-white px-3.5 py-2.5 focus-within:border-[#0E3FA8]">
                   <Icon name="lock" className="h-5 w-5 shrink-0 text-[#667085]" />
                   <input
@@ -117,19 +117,19 @@ export default function LoginPage() {
                   <input type="checkbox" className="h-4 w-4 rounded border-[#C8D0DD]" />
                   Ingat saya
                 </label>
-                <Link href="#" className="font-bold text-[#0E3FA8]">
+                <Link href="#" className="font-semibold text-[#0E3FA8]">
                   Lupa password?
                 </Link>
               </div>
 
-              <Link href="/profile" className="block w-full rounded-lg bg-[#0E3FA8] px-5 py-3 text-center text-sm font-black text-white">
+              <Link href="/profile" className="block w-full rounded-lg bg-[#0E3FA8] px-5 py-3 text-center text-sm font-semibold text-white">
                 Login
               </Link>
             </form>
 
             <p className="mt-5 text-center text-sm text-[#526176]">
               Belum punya akun?{" "}
-              <Link href="/register" className="font-black text-[#0E3FA8]">
+              <Link href="/register" className="font-semibold text-[#0E3FA8]">
                 Register sekarang
               </Link>
             </p>

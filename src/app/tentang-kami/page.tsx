@@ -88,9 +88,9 @@ function Icon({ name, className }: { name: string; className?: string }) {
 function Hero() {
   return (
     <section className="relative overflow-hidden bg-[#F5F7FC]">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8 lg:py-20">
+      <div className="mx-auto grid max-w-[1232px] gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8 lg:py-20">
         <div className="flex flex-col justify-center">
-          <h1 className="max-w-2xl text-4xl font-black leading-tight tracking-tight text-[#132033] sm:text-5xl">
+          <h1 className="max-w-2xl text-4xl font-bold leading-tight tracking-tight text-[#132033] sm:text-5xl">
             Tentang RentGo
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-8 text-[#526176]">
@@ -99,11 +99,11 @@ function Hero() {
             usaha rental.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/kendaraan" className="inline-flex items-center gap-2 rounded-lg bg-[#0E3FA8] px-5 py-3 text-sm font-black text-white">
+            <Link href="/kendaraan" className="inline-flex items-center gap-2 rounded-lg bg-[#0E3FA8] px-5 py-3 text-sm font-semibold text-white">
               Lihat kendaraan
               <Icon name="arrow" className="h-4 w-4" />
             </Link>
-            <Link href="/#bantuan" className="rounded-lg border border-[#C8D0DD] bg-white px-5 py-3 text-sm font-black text-[#132033]">
+            <Link href="/#bantuan" className="rounded-lg border border-[#C8D0DD] bg-white px-5 py-3 text-sm font-semibold text-[#132033]">
               Hubungi kami
             </Link>
           </div>
@@ -120,8 +120,8 @@ function Hero() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#10213D]/55 via-transparent to-transparent" />
           <div className="absolute bottom-5 left-5 right-5 rounded-xl bg-white/92 p-5 backdrop-blur">
-            <p className="text-sm font-bold text-[#0E3FA8]">Solusi rental kendaraan online</p>
-            <p className="mt-2 text-2xl font-black text-[#132033]">
+            <p className="text-sm font-semibold text-[#0E3FA8]">Solusi rental kendaraan online</p>
+            <p className="mt-2 text-2xl font-semibold text-[#132033]">
               Cari, booking, verifikasi, dan kelola transaksi dalam satu alur.
             </p>
           </div>
@@ -134,10 +134,10 @@ function Hero() {
 function Story() {
   return (
     <section className="bg-white py-20">
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
+      <div className="mx-auto grid max-w-[1232px] gap-12 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
         <div>
-          <p className="text-sm font-black text-[#147C4C]">Profil RentGo</p>
-          <h2 className="mt-3 text-3xl font-black tracking-tight text-[#132033] sm:text-4xl">
+          <p className="text-sm font-semibold text-[#147C4C]">Profil RentGo</p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#132033] sm:text-4xl">
             Dibuat untuk mengganti proses rental yang masih serba manual.
           </h2>
         </div>
@@ -164,10 +164,10 @@ function Story() {
 function Stats() {
   return (
     <section className="bg-[#10213D] py-12 text-white">
-      <div className="mx-auto grid max-w-7xl gap-6 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
+      <div className="mx-auto grid max-w-[1232px] gap-6 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
         {highlights.map((item) => (
           <div key={item.label} className="rounded-xl border border-white/10 bg-white/5 p-6">
-            <p className="text-3xl font-black text-[#75D09B]">{item.value}</p>
+            <p className="text-3xl font-semibold text-[#75D09B]">{item.value}</p>
             <p className="mt-2 text-sm leading-6 text-[#C8D4E6]">{item.label}</p>
           </div>
         ))}
@@ -179,10 +179,10 @@ function Stats() {
 function VisionMission() {
   return (
     <section className="bg-[#F5F7FC] py-20">
-      <div className="mx-auto grid max-w-7xl gap-6 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+      <div className="mx-auto grid max-w-[1232px] gap-6 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
         <article className="rounded-2xl border border-[#D8E5F6] bg-white p-8">
-          <p className="text-sm font-black text-[#147C4C]">Visi Kami</p>
-          <h2 className="mt-4 text-3xl font-black text-[#132033]">
+          <p className="text-sm font-semibold text-[#147C4C]">Visi Kami</p>
+          <h2 className="mt-4 text-3xl font-semibold text-[#132033]">
             Menjadi platform rental kendaraan yang praktis, aman, dan mudah dipercaya.
           </h2>
           <p className="mt-5 leading-8 text-[#526176]">
@@ -193,8 +193,8 @@ function VisionMission() {
         </article>
 
         <article className="rounded-2xl border border-[#D8E5F6] bg-white p-8">
-          <p className="text-sm font-black text-[#147C4C]">Misi Kami</p>
-          <h2 className="mt-4 text-3xl font-black text-[#132033]">
+          <p className="text-sm font-semibold text-[#147C4C]">Misi Kami</p>
+          <h2 className="mt-4 text-3xl font-semibold text-[#132033]">
             Membuat proses sewa lebih cepat dari pencarian sampai serah terima.
           </h2>
           <p className="mt-5 leading-8 text-[#526176]">
@@ -213,10 +213,10 @@ function Values() {
 
   return (
     <section className="bg-white py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1232px] px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl">
-          <p className="text-sm font-black text-[#147C4C]">Kenapa RentGo</p>
-          <h2 className="mt-3 text-3xl font-black tracking-tight text-[#132033] sm:text-4xl">
+          <p className="text-sm font-semibold text-[#147C4C]">Kenapa RentGo</p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#132033] sm:text-4xl">
             Satu platform untuk perjalanan dan pengelolaan rental.
           </h2>
         </div>
@@ -226,7 +226,7 @@ function Values() {
               <div className="grid h-12 w-12 place-items-center rounded-lg bg-white text-[#0E3FA8] shadow-sm">
                 <Icon name={icons[index]} className="h-6 w-6" />
               </div>
-              <h3 className="mt-6 text-xl font-black text-[#132033]">{value.title}</h3>
+              <h3 className="mt-6 text-xl font-semibold text-[#132033]">{value.title}</h3>
               <p className="mt-3 text-sm leading-7 text-[#526176]">{value.desc}</p>
             </article>
           ))}
@@ -239,10 +239,10 @@ function Values() {
 function Trust() {
   return (
     <section className="bg-[#F5F7FC] py-20">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+      <div className="mx-auto grid max-w-[1232px] gap-10 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
         <div>
-          <p className="text-sm font-black text-[#147C4C]">Komitmen Layanan</p>
-          <h2 className="mt-3 text-3xl font-black tracking-tight text-[#132033] sm:text-4xl">
+          <p className="text-sm font-semibold text-[#147C4C]">Komitmen Layanan</p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#132033] sm:text-4xl">
             Kepercayaan dibangun dari aturan yang jelas.
           </h2>
           <p className="mt-5 leading-8 text-[#526176]">
@@ -270,16 +270,16 @@ function Trust() {
 function Cta() {
   return (
     <section className="bg-white py-16">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1232px] px-4 sm:px-6 lg:px-8">
         <div className="rounded-2xl bg-[#0E3FA8] p-8 text-white md:flex md:items-center md:justify-between md:gap-8">
           <div>
-            <h2 className="text-2xl font-black">Siap mulai perjalanan dengan RentGo?</h2>
+            <h2 className="text-2xl font-semibold">Siap mulai perjalanan dengan RentGo?</h2>
             <p className="mt-3 max-w-2xl text-sm leading-7 text-blue-100">
               Pilih kendaraan, lengkapi data, dan buat pesanan dengan proses yang
               lebih terstruktur.
             </p>
           </div>
-          <Link href="/kendaraan" className="mt-6 inline-flex items-center gap-2 rounded-lg bg-white px-5 py-3 text-sm font-black text-[#0E3FA8] md:mt-0">
+          <Link href="/kendaraan" className="mt-6 inline-flex items-center gap-2 rounded-lg bg-white px-5 py-3 text-sm font-semibold text-[#0E3FA8] md:mt-0">
             Lihat daftar kendaraan
             <Icon name="arrow" className="h-4 w-4" />
           </Link>

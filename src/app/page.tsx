@@ -175,26 +175,26 @@ function BookingPanel() {
       <label className="flex min-w-0 items-center gap-3 rounded-md border border-[#DDE5F0] bg-[#F7FAFD] px-3 py-3">
         <Icon name="pin" className="h-5 w-5 shrink-0 text-[#1346A0]" />
         <span className="min-w-0 flex-1">
-          <span className="block text-[11px] font-bold text-[#66758D]">Lokasi ambil</span>
+          <span className="block text-[11px] font-semibold text-[#66758D]">Lokasi ambil</span>
           <input className="w-full bg-transparent text-sm font-semibold text-[#132033] outline-none placeholder:text-[#8A96A8]" placeholder="Surabaya" />
         </span>
       </label>
       <label className="rounded-md border border-[#DDE5F0] bg-[#F7FAFD] px-3 py-3">
-        <span className="block text-[11px] font-bold text-[#66758D]">Kategori</span>
+        <span className="block text-[11px] font-semibold text-[#66758D]">Kategori</span>
         <select className="w-full bg-transparent text-sm font-semibold text-[#132033] outline-none">
           <option>Mobil</option>
           <option>Motor</option>
         </select>
       </label>
       <label className="rounded-md border border-[#DDE5F0] bg-[#F7FAFD] px-3 py-3">
-        <span className="block text-[11px] font-bold text-[#66758D]">Tanggal sewa</span>
+        <span className="block text-[11px] font-semibold text-[#66758D]">Tanggal sewa</span>
         <input type="date" className="w-full bg-transparent text-sm font-semibold text-[#132033] outline-none" />
       </label>
       <label className="rounded-md border border-[#DDE5F0] bg-[#F7FAFD] px-3 py-3">
-        <span className="block text-[11px] font-bold text-[#66758D]">Tanggal kembali</span>
+        <span className="block text-[11px] font-semibold text-[#66758D]">Tanggal kembali</span>
         <input type="date" className="w-full bg-transparent text-sm font-semibold text-[#132033] outline-none" />
       </label>
-      <button className="inline-flex items-center justify-center gap-2 rounded-md bg-[#147C4C] px-5 py-3 text-sm font-black text-white hover:bg-[#0F633C]" type="button">
+      <button className="inline-flex items-center justify-center gap-2 rounded-md bg-[#147C4C] px-5 py-3 text-sm font-semibold text-white hover:bg-[#0F633C]" type="button">
         <Icon name="search" className="h-4 w-4" />
         Cari
       </button>
@@ -217,20 +217,20 @@ function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-[#F7FAFD] via-[#F7FAFD]/88 to-[#F7FAFD]/18" />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-4 pb-10 pt-16 sm:px-6 lg:px-8 lg:pb-14 lg:pt-24">
+      <div className="relative mx-auto max-w-[1232px] px-4 pb-10 pt-16 sm:px-6 lg:px-8 lg:pb-14 lg:pt-24">
         <div className="max-w-2xl">
-          <h1 className="text-4xl font-black leading-tight tracking-tight text-[#132033] sm:text-5xl lg:text-6xl">
+          <h1 className="text-4xl font-bold leading-tight tracking-tight text-[#132033] sm:text-5xl lg:text-6xl">
             Sewa kendaraan lebih cepat, tercatat, dan siap jalan.
           </h1>
           <p className="mt-5 max-w-xl text-base leading-8 text-[#445168] sm:text-lg">
             RentGo membantu pelanggan melihat armada tersedia, menghitung biaya sewa, membayar DP, dan memantau status pesanan. Admin mengelola kendaraan, transaksi, serta laporan dari satu tempat.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="#pesan" className="inline-flex items-center gap-2 rounded-md bg-[#1346A0] px-5 py-3 text-sm font-black text-white hover:bg-[#0D367D]">
+            <Link href="#pesan" className="inline-flex items-center gap-2 rounded-md bg-[#1346A0] px-5 py-3 text-sm font-semibold text-white hover:bg-[#0D367D]">
               Mulai pesan
               <Icon name="arrow" className="h-4 w-4" />
             </Link>
-            <Link href="#cara-sewa" className="rounded-md border border-[#B8C5D8] bg-white px-5 py-3 text-sm font-black text-[#132033] hover:border-[#1346A0]">
+            <Link href="#cara-sewa" className="rounded-md border border-[#B8C5D8] bg-white px-5 py-3 text-sm font-semibold text-[#132033] hover:border-[#1346A0]">
               Lihat cara sewa
             </Link>
           </div>
@@ -247,11 +247,11 @@ function Hero() {
 function Services() {
   return (
     <section id="layanan" className="bg-white py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1232px] px-4 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
           <div>
-            <p className="text-sm font-black text-[#147C4C]">Produk dan Layanan</p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight text-[#132033] sm:text-4xl">
+            <p className="text-sm font-semibold text-[#147C4C]">Produk dan Layanan</p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#132033] sm:text-4xl">
               Dari pencarian unit sampai laporan transaksi.
             </h2>
           </div>
@@ -265,7 +265,7 @@ function Services() {
               <div className="grid h-12 w-12 place-items-center rounded-md bg-white text-[#1346A0] shadow-sm">
                 <Icon name={service.icon} className="h-6 w-6" />
               </div>
-              <h3 className="mt-5 text-lg font-black text-[#132033]">{service.title}</h3>
+              <h3 className="mt-5 text-lg font-semibold text-[#132033]">{service.title}</h3>
               <p className="mt-3 text-sm leading-7 text-[#526176]">{service.desc}</p>
             </article>
           ))}
@@ -278,15 +278,15 @@ function Services() {
 function Fleet() {
   return (
     <section id="armada" className="bg-[#F7FAFD] py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1232px] px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
-            <p className="text-sm font-black text-[#147C4C]">Armada</p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight text-[#132033] sm:text-4xl">
+            <p className="text-sm font-semibold text-[#147C4C]">Armada</p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#132033] sm:text-4xl">
               Kendaraan populer untuk kebutuhan harian.
             </h2>
           </div>
-          <Link href="#pesan" className="inline-flex w-fit items-center gap-2 rounded-md bg-white px-5 py-3 text-sm font-black text-[#1346A0] ring-1 ring-[#DDE5F0] hover:ring-[#1346A0]">
+          <Link href="#pesan" className="inline-flex w-fit items-center gap-2 rounded-md bg-white px-5 py-3 text-sm font-semibold text-[#1346A0] ring-1 ring-[#DDE5F0] hover:ring-[#1346A0]">
             Cek ketersediaan
             <Icon name="arrow" className="h-4 w-4" />
           </Link>
@@ -307,7 +307,7 @@ function Fleet() {
                   style={{ objectPosition: vehicle.imagePosition }}
                 />
                 <span
-                  className={`absolute right-3 top-3 inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-bold shadow-sm ${
+                  className={`absolute right-3 top-3 inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold shadow-sm ${
                     vehicle.statusTone === "available"
                       ? "bg-[#DDF8E7] text-[#147C4C]"
                       : "bg-[#FDE5E7] text-[#C74A58]"
@@ -322,7 +322,7 @@ function Fleet() {
               </div>
 
               <div className="p-5">
-                <h3 className="text-2xl font-black leading-tight text-[#132033]">{vehicle.name}</h3>
+                <h3 className="text-2xl font-semibold leading-tight text-[#132033]">{vehicle.name}</h3>
                 <p className="mt-1 text-base font-medium text-[#66758D]">{vehicle.year}</p>
 
                 <div className="mt-5 grid grid-cols-2 gap-4 text-base font-medium text-[#526176]">
@@ -338,14 +338,14 @@ function Fleet() {
 
                 <div className="mt-6 border-t border-[#DDE5F0] pt-5">
                   <div className="flex items-center justify-between gap-4">
-                    <p className="text-2xl font-black text-[#1346A0]">
+                    <p className="text-2xl font-semibold text-[#1346A0]">
                       {vehicle.price}
                       <span className="text-sm font-semibold text-[#66758D]"> /hari</span>
                     </p>
                     <button
                       type="button"
                       disabled={vehicle.statusTone !== "available"}
-                      className="rounded-lg bg-[#1346A0] px-5 py-2 text-sm font-bold text-white transition-colors hover:bg-[#0D367D] disabled:bg-[#E9EEF7] disabled:text-[#9AA7BA]"
+                      className="rounded-lg bg-[#1346A0] px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#0D367D] disabled:bg-[#E9EEF7] disabled:text-[#9AA7BA]"
                     >
                       Pilih
                     </button>
@@ -363,18 +363,18 @@ function Fleet() {
 function Steps() {
   return (
     <section id="cara-sewa" className="bg-white py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1232px] px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl">
-          <p className="text-sm font-black text-[#147C4C]">Cara Sewa</p>
-          <h2 className="mt-3 text-3xl font-black tracking-tight text-[#132033] sm:text-4xl">
+          <p className="text-sm font-semibold text-[#147C4C]">Cara Sewa</p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#132033] sm:text-4xl">
             Alur dibuat untuk mengurangi proses manual.
           </h2>
         </div>
         <ol className="mt-12 grid gap-5 md:grid-cols-4">
           {steps.map((step, index) => (
             <li key={step.title} className="rounded-lg border border-[#DDE5F0] p-6">
-              <span className="text-4xl font-black text-[#DDE5F0]">{String(index + 1).padStart(2, "0")}</span>
-              <h3 className="mt-8 text-lg font-black text-[#132033]">{step.title}</h3>
+              <span className="text-4xl font-semibold text-[#DDE5F0]">{String(index + 1).padStart(2, "0")}</span>
+              <h3 className="mt-8 text-lg font-semibold text-[#132033]">{step.title}</h3>
               <p className="mt-3 text-sm leading-7 text-[#526176]">{step.desc}</p>
             </li>
           ))}
@@ -387,10 +387,10 @@ function Steps() {
 function Rules() {
   return (
     <section id="aturan" className="bg-[#10213D] py-20 text-white">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+      <div className="mx-auto grid max-w-[1232px] gap-10 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
         <div>
-          <p className="text-sm font-black text-[#75D09B]">Aturan Bisnis</p>
-          <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">
+          <p className="text-sm font-semibold text-[#75D09B]">Aturan Bisnis</p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
             Transparan sejak pelanggan memilih tanggal.
           </h2>
           <p className="mt-5 leading-8 text-[#C8D4E6]">
@@ -399,18 +399,18 @@ function Rules() {
         </div>
         <div className="grid gap-5 md:grid-cols-2">
           <div className="rounded-lg bg-white p-6 text-[#132033]">
-            <h3 className="text-lg font-black">Diskon durasi sewa</h3>
+            <h3 className="text-lg font-semibold">Diskon durasi sewa</h3>
             <div className="mt-5 divide-y divide-[#DDE5F0]">
               {rules.map((rule) => (
                 <div key={rule.label} className="flex items-center justify-between gap-4 py-3 text-sm">
-                  <span className="font-bold text-[#526176]">{rule.label}</span>
-                  <span className="font-black text-[#1346A0]">{rule.value}</span>
+                  <span className="font-semibold text-[#526176]">{rule.label}</span>
+                  <span className="font-semibold text-[#1346A0]">{rule.value}</span>
                 </div>
               ))}
             </div>
           </div>
           <div className="rounded-lg bg-white p-6 text-[#132033]">
-            <h3 className="text-lg font-black">Refund pembatalan</h3>
+            <h3 className="text-lg font-semibold">Refund pembatalan</h3>
             <ul className="mt-5 space-y-3">
               {refunds.map((refund) => (
                 <li key={refund} className="flex gap-3 text-sm leading-6 text-[#526176]">
@@ -429,10 +429,10 @@ function Rules() {
 function Help() {
   return (
     <section id="bantuan" className="bg-white py-20">
-      <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:px-8">
+      <div className="mx-auto grid max-w-[1232px] gap-8 px-4 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:px-8">
         <div>
-          <p className="text-sm font-black text-[#147C4C]">Bantuan</p>
-          <h2 className="mt-3 text-3xl font-black tracking-tight text-[#132033] sm:text-4xl">
+          <p className="text-sm font-semibold text-[#147C4C]">Bantuan</p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#132033] sm:text-4xl">
             Siap membantu pelanggan dan admin rental.
           </h2>
           <p className="mt-5 max-w-2xl leading-8 text-[#526176]">
@@ -445,15 +445,15 @@ function Help() {
               <Icon name="phone" className="h-6 w-6" />
             </div>
             <div>
-              <p className="font-black text-[#132033]">Butuh bantuan pemesanan?</p>
+              <p className="font-semibold text-[#132033]">Butuh bantuan pemesanan?</p>
               <p className="text-sm text-[#526176]">Call Center 1500 009</p>
             </div>
           </div>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Link href="#pesan" className="rounded-md bg-[#1346A0] px-5 py-3 text-sm font-black text-white hover:bg-[#0D367D]">
+            <Link href="#pesan" className="rounded-md bg-[#1346A0] px-5 py-3 text-sm font-semibold text-white hover:bg-[#0D367D]">
               Pesan kendaraan
             </Link>
-            <Link href="#armada" className="rounded-md bg-white px-5 py-3 text-sm font-black text-[#132033] ring-1 ring-[#DDE5F0] hover:ring-[#1346A0]">
+            <Link href="#armada" className="rounded-md bg-white px-5 py-3 text-sm font-semibold text-[#132033] ring-1 ring-[#DDE5F0] hover:ring-[#1346A0]">
               Lihat armada
             </Link>
           </div>

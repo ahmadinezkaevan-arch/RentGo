@@ -76,15 +76,15 @@ function FilterSidebar() {
     <aside className="lg:sticky lg:top-24 lg:self-start">
       <div className="rounded-none bg-[#F5F7FC] lg:pr-6">
         <div className="flex items-center justify-between border-b border-[#D9E0EC] pb-5">
-          <h1 className="text-2xl font-black text-[#132033]">Filters</h1>
-          <button type="button" className="text-sm font-bold text-[#0E3FA8]">
+          <h1 className="text-2xl font-semibold text-[#132033]">Filters</h1>
+          <button type="button" className="text-sm font-semibold text-[#0E3FA8]">
             Reset All
           </button>
         </div>
 
         <div className="space-y-9 pt-8">
           <section>
-            <h2 className="text-base font-black text-[#414B5D]">Tipe Kendaraan</h2>
+            <h2 className="text-base font-semibold text-[#414B5D]">Tipe Kendaraan</h2>
             <div className="mt-4 space-y-3">
               {["Mobil", "Motor"].map((type) => (
                 <label key={type} className="flex items-center gap-3 text-base text-[#475467]">
@@ -96,7 +96,7 @@ function FilterSidebar() {
           </section>
 
           <section>
-            <h2 className="text-base font-black text-[#414B5D]">Harga / Hari</h2>
+            <h2 className="text-base font-semibold text-[#414B5D]">Harga / Hari</h2>
             <div className="mt-4 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
               <input className="min-w-0 rounded-lg border border-[#C8D0DD] bg-white px-4 py-3 text-base outline-none placeholder:text-[#8A94A6]" placeholder="Min" />
               <span className="text-[#A6AFBE]">-</span>
@@ -105,7 +105,7 @@ function FilterSidebar() {
           </section>
 
           <section>
-            <h2 className="text-base font-black text-[#414B5D]">Transmisi</h2>
+            <h2 className="text-base font-semibold text-[#414B5D]">Transmisi</h2>
             <div className="mt-4 grid grid-cols-2 gap-2">
               <button type="button" className="rounded-lg border border-[#C8D0DD] bg-white px-4 py-2.5 text-sm font-semibold text-[#4B5565]">
                 Manual
@@ -117,14 +117,14 @@ function FilterSidebar() {
           </section>
 
           <section>
-            <h2 className="text-base font-black text-[#414B5D]">Kapasitas (Kursi)</h2>
+            <h2 className="text-base font-semibold text-[#414B5D]">Kapasitas (Kursi)</h2>
             <button type="button" className="mt-4 flex w-full items-center justify-between rounded-lg border border-[#C8D0DD] bg-white px-4 py-3 text-left text-base text-[#344054]">
               Semua Kapasitas
               <Icon name="chevron" className="h-5 w-5 text-[#667085]" />
             </button>
           </section>
 
-          <button type="button" className="w-full rounded-lg bg-[#0E3FA8] px-5 py-4 text-base font-black text-white">
+          <button type="button" className="w-full rounded-lg bg-[#0E3FA8] px-5 py-4 text-base font-semibold text-white">
             Terapkan Filter
           </button>
         </div>
@@ -146,7 +146,7 @@ function VehicleCard({ vehicle }: { vehicle: (typeof vehicles)[number] }) {
           style={{ objectPosition: vehicle.imagePosition }}
         />
         <span
-          className={`absolute right-2.5 top-2.5 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold shadow-sm ${
+          className={`absolute right-2.5 top-2.5 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold shadow-sm ${
             vehicle.available ? "bg-[#DDF8E7] text-[#147C4C]" : "bg-[#FDE5E7] text-[#C74A58]"
           }`}
         >
@@ -156,7 +156,7 @@ function VehicleCard({ vehicle }: { vehicle: (typeof vehicles)[number] }) {
       </div>
 
       <div className="p-4">
-        <h3 className="text-xl font-black leading-tight text-[#132033]">{vehicle.name}</h3>
+        <h3 className="text-xl font-semibold leading-tight text-[#132033]">{vehicle.name}</h3>
         <p className="mt-1.5 text-sm font-medium text-[#667085]">{vehicle.yearLabel}</p>
 
         <div className="mt-4 grid grid-cols-2 gap-3 text-sm font-medium text-[#526176]">
@@ -172,14 +172,14 @@ function VehicleCard({ vehicle }: { vehicle: (typeof vehicles)[number] }) {
 
         <div className="mt-5 border-t border-[#DDE5F0] pt-4">
           <div className="flex items-center justify-between gap-3">
-            <p className="text-xl font-black text-[#0E3FA8]">
+            <p className="text-xl font-semibold text-[#0E3FA8]">
               {vehicle.price}
               <span className="text-xs font-semibold text-[#667085]"> /hari</span>
             </p>
             {vehicle.available ? (
               <Link
                 href={`/kendaraan/${vehicle.slug}`}
-                className="rounded-lg bg-[#1647B8] px-4 py-1.5 text-xs font-bold text-white"
+                className="rounded-lg bg-[#1647B8] px-4 py-1.5 text-xs font-semibold text-white"
               >
                 Pilih
               </Link>
@@ -187,7 +187,7 @@ function VehicleCard({ vehicle }: { vehicle: (typeof vehicles)[number] }) {
               <button
                 type="button"
                 disabled
-                className="rounded-lg bg-[#E9EEF7] px-4 py-1.5 text-xs font-bold text-[#A4AEC0]"
+                className="rounded-lg bg-[#E9EEF7] px-4 py-1.5 text-xs font-semibold text-[#A4AEC0]"
               >
                 Pilih
               </button>
@@ -205,7 +205,7 @@ function Pagination() {
       <button className="grid h-11 w-11 place-items-center rounded-lg border border-[#CBD5E1] bg-white text-[#344054]" type="button" aria-label="Halaman sebelumnya">
         <Icon name="arrowLeft" className="h-5 w-5" />
       </button>
-      <button className="grid h-11 w-11 place-items-center rounded-lg bg-[#0E3FA8] text-base font-black text-white" type="button">
+      <button className="grid h-11 w-11 place-items-center rounded-lg bg-[#0E3FA8] text-base font-semibold text-white" type="button">
         1
       </button>
       <button className="grid h-11 w-11 place-items-center rounded-lg border border-[#CBD5E1] bg-white text-base font-semibold text-[#475467]" type="button">
@@ -222,7 +222,7 @@ export default function VehicleListPage() {
   return (
     <main className="bg-[#F5F7FC]">
       <SiteHeader activePage="kendaraan" />
-      <section className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[18rem_1fr] lg:px-8">
+      <section className="mx-auto grid max-w-[1232px] gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[18rem_1fr] lg:px-8">
         <FilterSidebar />
 
         <div>

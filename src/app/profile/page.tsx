@@ -103,7 +103,7 @@ function Icon({ name, className }: { name: IconName; className?: string }) {
 function TextField({ label, value, icon }: { label: string; value: string; icon: IconName }) {
   return (
     <label className="block">
-      <span className="text-sm font-black text-[#344054]">{label}</span>
+      <span className="text-sm font-semibold text-[#344054]">{label}</span>
       <span className="mt-2 flex h-12 items-center gap-3 rounded-lg border border-[#C8D0DD] bg-white px-4 focus-within:border-[#0E3FA8]">
         <Icon name={icon} className="h-5 w-5 shrink-0 text-[#667085]" />
         <input className="w-full bg-transparent text-base outline-none" defaultValue={value} />
@@ -119,14 +119,14 @@ function DocumentCard({ title, file, status }: { title: string; file: string; st
         <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-white text-[#0E3FA8] shadow-sm">
           <Icon name="document" className="h-6 w-6" />
         </span>
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-[#DDF8E7] px-3 py-1 text-xs font-black text-[#147C4C]">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-[#DDF8E7] px-3 py-1 text-xs font-semibold text-[#147C4C]">
           <Icon name="check" className="h-3.5 w-3.5" />
           {status}
         </span>
       </div>
-      <h3 className="mt-4 text-base font-black text-[#132033]">{title}</h3>
+      <h3 className="mt-4 text-base font-semibold text-[#132033]">{title}</h3>
       <p className="mt-1 text-sm text-[#667085]">{file}</p>
-      <button type="button" className="mt-4 rounded-lg border border-[#0E3FA8] px-4 py-2 text-sm font-black text-[#0E3FA8]">
+      <button type="button" className="mt-4 rounded-lg border border-[#0E3FA8] px-4 py-2 text-sm font-semibold text-[#0E3FA8]">
         Ganti Dokumen
       </button>
     </article>
@@ -143,7 +143,7 @@ export default function ProfilePage() {
     <main className="bg-[#F5F7FC]">
       <SiteHeader isAuthenticated />
 
-      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
+      <section className="mx-auto max-w-[1232px] px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
         <div className="grid gap-8 lg:grid-cols-[20rem_minmax(0,1fr)]">
           <aside className="lg:sticky lg:top-28 lg:self-start">
             <section className="overflow-hidden rounded-xl border border-[#D5DDEA] bg-white shadow-sm">
@@ -162,9 +162,9 @@ export default function ProfilePage() {
                     <Icon name="camera" className="h-4 w-4" />
                   </button>
                 </div>
-                <h1 className="mt-4 text-2xl font-black leading-tight text-[#132033]">Ahmadinezka Evan</h1>
+                <h1 className="mt-4 text-2xl font-semibold leading-tight text-[#132033]">Ahmadinezka Evan</h1>
                 <p className="mt-1 text-sm font-semibold text-[#667085]">Pelanggan RentGo</p>
-                <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#DDF8E7] px-4 py-2 text-sm font-black text-[#147C4C]">
+                <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#DDF8E7] px-4 py-2 text-sm font-semibold text-[#147C4C]">
                   <Icon name="shield" className="h-4 w-4" />
                   Dokumen terverifikasi
                 </span>
@@ -181,7 +181,7 @@ export default function ProfilePage() {
                 <Link
                   key={String(label)}
                   href="#"
-                  className={`flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-black ${
+                  className={`flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-semibold ${
                     active ? "bg-[#EEF5FF] text-[#0E3FA8]" : "text-[#526176] hover:bg-[#F5F7FC] hover:text-[#0E3FA8]"
                   }`}
                 >
@@ -196,12 +196,12 @@ export default function ProfilePage() {
             <section className="rounded-xl border border-[#D5DDEA] bg-white p-5 shadow-sm sm:p-6">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
-                  <h2 className="text-3xl font-black leading-tight text-[#101B2D]">Profil Saya</h2>
+                  <h2 className="text-3xl font-semibold leading-tight text-[#101B2D]">Profil Saya</h2>
                   <p className="mt-2 max-w-2xl text-base leading-7 text-[#667085]">
                     Kelola informasi akun, dokumen identitas, dan status penyewaan kendaraan Anda.
                   </p>
                 </div>
-                <button type="button" className="inline-flex items-center gap-2 rounded-lg bg-[#0E3FA8] px-5 py-3 text-sm font-black text-white">
+                <button type="button" className="inline-flex items-center gap-2 rounded-lg bg-[#0E3FA8] px-5 py-3 text-sm font-semibold text-white">
                   <Icon name="edit" className="h-5 w-5" />
                   Edit Profil
                 </button>
@@ -215,7 +215,7 @@ export default function ProfilePage() {
                 ].map(([label, value, icon]) => (
                   <article key={label} className="rounded-lg border border-[#D5DDEA] bg-[#F8FAFE] p-4">
                     <Icon name={icon as IconName} className="h-6 w-6 text-[#0E3FA8]" />
-                    <p className="mt-3 text-2xl font-black text-[#132033]">{value}</p>
+                    <p className="mt-3 text-2xl font-semibold text-[#132033]">{value}</p>
                     <p className="mt-1 text-sm font-semibold text-[#667085]">{label}</p>
                   </article>
                 ))}
@@ -223,7 +223,7 @@ export default function ProfilePage() {
             </section>
 
             <section className="rounded-xl border border-[#D5DDEA] bg-white p-5 shadow-sm sm:p-6">
-              <h2 className="text-xl font-black text-[#132033]">Informasi Pribadi</h2>
+              <h2 className="text-xl font-semibold text-[#132033]">Informasi Pribadi</h2>
               <div className="mt-5 grid gap-4 md:grid-cols-2">
                 <TextField label="Nama Lengkap" value="Ahmadinezka Evan Juanurifiki" icon="user" />
                 <TextField label="Nomor Telepon" value="0812-3456-7890" icon="phone" />
@@ -234,8 +234,8 @@ export default function ProfilePage() {
 
             <section className="rounded-xl border border-[#D5DDEA] bg-white p-5 shadow-sm sm:p-6">
               <div className="flex flex-wrap items-center justify-between gap-4">
-                <h2 className="text-xl font-black text-[#132033]">Riwayat Booking</h2>
-                <Link href="/kendaraan" className="text-sm font-black text-[#0E3FA8]">
+                <h2 className="text-xl font-semibold text-[#132033]">Riwayat Booking</h2>
+                <Link href="/kendaraan" className="text-sm font-semibold text-[#0E3FA8]">
                   Sewa kendaraan lagi
                 </Link>
               </div>
@@ -247,18 +247,18 @@ export default function ProfilePage() {
                         <Icon name="car" className="h-6 w-6" />
                       </span>
                       <div>
-                        <h3 className="text-base font-black text-[#132033]">{booking.vehicle}</h3>
+                        <h3 className="text-base font-semibold text-[#132033]">{booking.vehicle}</h3>
                         <p className="mt-1 text-sm font-medium text-[#667085]">{booking.date}</p>
                       </div>
                     </div>
-                    <span className={`w-max rounded-full px-3 py-1 text-xs font-black ${booking.color}`}>{booking.status}</span>
+                    <span className={`w-max rounded-full px-3 py-1 text-xs font-semibold ${booking.color}`}>{booking.status}</span>
                   </article>
                 ))}
               </div>
             </section>
 
             <section className="rounded-xl border border-[#D5DDEA] bg-white p-5 shadow-sm sm:p-6">
-              <h2 className="text-xl font-black text-[#132033]">Dokumen Identitas</h2>
+              <h2 className="text-xl font-semibold text-[#132033]">Dokumen Identitas</h2>
               <p className="mt-2 text-base text-[#667085]">Dokumen ini digunakan untuk validasi penyewaan kendaraan.</p>
               <div className="mt-5 grid gap-4 md:grid-cols-2">
                 <DocumentCard title="KTP" file="ktp-ahmadinezka.jpg" status="Terverifikasi" />

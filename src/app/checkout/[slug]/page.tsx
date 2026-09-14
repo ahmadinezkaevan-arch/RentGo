@@ -149,7 +149,7 @@ export default async function CheckoutPage({ params }: CheckoutPageProps) {
     <main className="bg-[#F5F7FC]">
       <SiteHeader activePage="kendaraan" />
 
-      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
+      <section className="mx-auto max-w-[1232px] px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
         <nav className="flex flex-wrap items-center gap-2 text-sm font-semibold text-[#667085]" aria-label="Breadcrumb">
           <Link href="/kendaraan" className="hover:text-[#0E3FA8]">
             Kendaraan
@@ -167,10 +167,10 @@ export default async function CheckoutPage({ params }: CheckoutPageProps) {
             <section className="rounded-xl border border-[#D5DDEA] bg-white p-5 shadow-sm sm:p-6">
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
-                  <h1 className="text-3xl font-black leading-tight text-[#101B2D] sm:text-4xl">Detail Booking</h1>
+                  <h1 className="text-3xl font-semibold leading-tight text-[#101B2D] sm:text-4xl">Detail Booking</h1>
                   <p className="mt-2 text-base font-medium text-[#667085]">Periksa data sewa sebelum melanjutkan pembayaran.</p>
                 </div>
-                <span className="inline-flex items-center gap-2 rounded-full bg-[#E3F2FF] px-4 py-2 text-sm font-black text-[#087E9F]">
+                <span className="inline-flex items-center gap-2 rounded-full bg-[#E3F2FF] px-4 py-2 text-sm font-semibold text-[#087E9F]">
                   <Icon name="shield" className="h-4 w-4" />
                   Pembayaran aman
                 </span>
@@ -183,7 +183,7 @@ export default async function CheckoutPage({ params }: CheckoutPageProps) {
                   ["Selesai", "Konfirmasi email"],
                 ].map(([title, text], index) => (
                   <div key={title} className={`rounded-lg border px-4 py-3 ${index === 1 ? "border-[#0E3FA8] bg-[#EEF5FF]" : "border-[#D5DDEA] bg-white"}`}>
-                    <p className="text-sm font-black text-[#132033]">{title}</p>
+                    <p className="text-sm font-semibold text-[#132033]">{title}</p>
                     <p className="mt-1 text-sm text-[#667085]">{text}</p>
                   </div>
                 ))}
@@ -191,40 +191,40 @@ export default async function CheckoutPage({ params }: CheckoutPageProps) {
             </section>
 
             <section className="rounded-xl border border-[#D5DDEA] bg-white p-5 shadow-sm sm:p-6">
-              <h2 className="text-xl font-black text-[#132033]">Informasi Pemesanan</h2>
+              <h2 className="text-xl font-semibold text-[#132033]">Informasi Pemesanan</h2>
               <div className="mt-5 grid gap-4 md:grid-cols-2">
                 <div className="rounded-lg border border-[#D5DDEA] bg-[#F8FAFE] p-4">
-                  <p className="flex items-center gap-2 text-sm font-black text-[#667085]">
+                  <p className="flex items-center gap-2 text-sm font-semibold text-[#667085]">
                     <Icon name="location" className="h-5 w-5 text-[#0E3FA8]" />
                     Lokasi Pengambilan
                   </p>
-                  <p className="mt-2 text-base font-black text-[#132033]">RentGo Cabang Bandung</p>
+                  <p className="mt-2 text-base font-semibold text-[#132033]">RentGo Cabang Bandung</p>
                   <p className="mt-1 text-sm text-[#667085]">Jl. Asia Afrika No. 12, Bandung</p>
                 </div>
                 <div className="rounded-lg border border-[#D5DDEA] bg-[#F8FAFE] p-4">
-                  <p className="flex items-center gap-2 text-sm font-black text-[#667085]">
+                  <p className="flex items-center gap-2 text-sm font-semibold text-[#667085]">
                     <Icon name="calendar" className="h-5 w-5 text-[#0E3FA8]" />
                     Jadwal Sewa
                   </p>
-                  <p className="mt-2 text-base font-black text-[#132033]">24 Okt, 09.00 - 27 Okt, 09.00</p>
+                  <p className="mt-2 text-base font-semibold text-[#132033]">24 Okt, 09.00 - 27 Okt, 09.00</p>
                   <p className="mt-1 text-sm text-[#667085]">Durasi {rentalDays} hari, lepas kunci</p>
                 </div>
               </div>
             </section>
 
             <section className="rounded-xl border border-[#D5DDEA] bg-white p-5 shadow-sm sm:p-6">
-              <h2 className="text-xl font-black text-[#132033]">Data Pemesan</h2>
+              <h2 className="text-xl font-semibold text-[#132033]">Data Pemesan</h2>
               <div className="mt-5 grid gap-4 md:grid-cols-2">
                 <label className="block">
-                  <span className="text-sm font-black text-[#344054]">Nama Lengkap</span>
+                  <span className="text-sm font-semibold text-[#344054]">Nama Lengkap</span>
                   <input className="mt-2 h-12 w-full rounded-lg border border-[#C8D0DD] bg-white px-4 text-base outline-none focus:border-[#0E3FA8]" defaultValue="Ahmadinezka Evan Juanurifiki" />
                 </label>
                 <label className="block">
-                  <span className="text-sm font-black text-[#344054]">Nomor HP</span>
+                  <span className="text-sm font-semibold text-[#344054]">Nomor HP</span>
                   <input className="mt-2 h-12 w-full rounded-lg border border-[#C8D0DD] bg-white px-4 text-base outline-none focus:border-[#0E3FA8]" defaultValue="0812-3456-7890" />
                 </label>
                 <label className="block md:col-span-2">
-                  <span className="text-sm font-black text-[#344054]">Email</span>
+                  <span className="text-sm font-semibold text-[#344054]">Email</span>
                   <input className="mt-2 h-12 w-full rounded-lg border border-[#C8D0DD] bg-white px-4 text-base outline-none focus:border-[#0E3FA8]" defaultValue="evan@rentgo.co.id" />
                 </label>
               </div>
@@ -235,7 +235,7 @@ export default async function CheckoutPage({ params }: CheckoutPageProps) {
             </section>
 
             <section className="rounded-xl border border-[#D5DDEA] bg-white p-5 shadow-sm sm:p-6">
-              <h2 className="text-xl font-black text-[#132033]">Metode Pembayaran</h2>
+              <h2 className="text-xl font-semibold text-[#132033]">Metode Pembayaran</h2>
               <div className="mt-5 grid gap-3">
                 {paymentMethods.map((method) => (
                   <label
@@ -249,7 +249,7 @@ export default async function CheckoutPage({ params }: CheckoutPageProps) {
                       <Icon name={method.icon} className="h-6 w-6" />
                     </span>
                     <span className="min-w-0">
-                      <span className="block text-base font-black text-[#132033]">{method.name}</span>
+                      <span className="block text-base font-semibold text-[#132033]">{method.name}</span>
                       <span className="block text-sm text-[#667085]">{method.detail}</span>
                     </span>
                   </label>
@@ -274,10 +274,10 @@ export default async function CheckoutPage({ params }: CheckoutPageProps) {
               <div className="p-5 sm:p-6">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <h2 className="text-2xl font-black leading-tight text-[#132033]">{vehicle.displayName}</h2>
+                    <h2 className="text-2xl font-semibold leading-tight text-[#132033]">{vehicle.displayName}</h2>
                     <p className="mt-1 text-sm font-medium text-[#667085]">{vehicle.category} - {vehicle.transmission}</p>
                   </div>
-                  <span className={`rounded-full px-3 py-1 text-xs font-black ${vehicle.available ? "bg-[#DDF8E7] text-[#147C4C]" : "bg-[#FDE5E7] text-[#C74A58]"}`}>
+                  <span className={`rounded-full px-3 py-1 text-xs font-semibold ${vehicle.available ? "bg-[#DDF8E7] text-[#147C4C]" : "bg-[#FDE5E7] text-[#C74A58]"}`}>
                     {vehicle.status}
                   </span>
                 </div>
@@ -299,17 +299,17 @@ export default async function CheckoutPage({ params }: CheckoutPageProps) {
                     <span>Diskon</span>
                     <span className="font-semibold text-[#147C4C]">-{formatRupiah(discount)}</span>
                   </div>
-                  <div className="mt-4 flex justify-between gap-4 border-t border-[#DDE5F0] pt-4 text-lg font-black text-[#132033]">
+                  <div className="mt-4 flex justify-between gap-4 border-t border-[#DDE5F0] pt-4 text-lg font-semibold text-[#132033]">
                     <span>Total</span>
                     <span className="text-[#0E3FA8]">{formatRupiah(total)}</span>
                   </div>
                 </div>
 
                 <label className="mt-5 block">
-                  <span className="text-sm font-black text-[#344054]">Kode Voucher</span>
+                  <span className="text-sm font-semibold text-[#344054]">Kode Voucher</span>
                   <div className="mt-2 flex gap-2">
                     <input className="h-12 min-w-0 flex-1 rounded-lg border border-[#C8D0DD] bg-white px-4 text-base outline-none placeholder:text-[#8A94A6] focus:border-[#0E3FA8]" placeholder="Masukkan kode" />
-                    <button type="button" className="rounded-lg border border-[#0E3FA8] px-4 text-sm font-black text-[#0E3FA8]">
+                    <button type="button" className="rounded-lg border border-[#0E3FA8] px-4 text-sm font-semibold text-[#0E3FA8]">
                       Pakai
                     </button>
                   </div>
@@ -323,7 +323,7 @@ export default async function CheckoutPage({ params }: CheckoutPageProps) {
                 <button
                   type="button"
                   disabled={!vehicle.available}
-                  className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-[#0E3FA8] px-5 py-4 text-base font-black text-white disabled:bg-[#AEB8C8]"
+                  className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-[#0E3FA8] px-5 py-4 text-base font-semibold text-white disabled:bg-[#AEB8C8]"
                 >
                   Bayar Sekarang
                   <Icon name="chevronRight" className="h-5 w-5" />

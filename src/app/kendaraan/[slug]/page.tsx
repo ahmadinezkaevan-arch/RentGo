@@ -147,7 +147,7 @@ export default async function VehicleDetailPage({ params }: VehicleDetailPagePro
     <main className="bg-[#F5F7FC]">
       <SiteHeader activePage="kendaraan" />
 
-      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
+      <section className="mx-auto max-w-[1232px] px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
         <nav className="flex flex-wrap items-center gap-2 text-sm font-semibold text-[#667085]" aria-label="Breadcrumb">
           <Link href="/kendaraan" className="hover:text-[#0E3FA8]">
             Kendaraan
@@ -183,7 +183,7 @@ export default async function VehicleDetailPage({ params }: VehicleDetailPagePro
                       style={{ objectPosition: position }}
                     />
                     {index === 1 ? (
-                      <span className="absolute inset-x-0 bottom-5 mx-auto inline-flex w-max items-center gap-2 rounded-lg bg-black/45 px-3 py-2 text-sm font-black text-white backdrop-blur">
+                      <span className="absolute inset-x-0 bottom-5 mx-auto inline-flex w-max items-center gap-2 rounded-lg bg-black/45 px-3 py-2 text-sm font-semibold text-white backdrop-blur">
                         <Icon name="image" className="h-5 w-5" />
                         +5 Foto
                       </span>
@@ -195,13 +195,13 @@ export default async function VehicleDetailPage({ params }: VehicleDetailPagePro
 
             <div className="mt-8 grid gap-4 sm:grid-cols-[1fr_auto] sm:items-start">
               <div>
-                <h1 className="text-4xl font-black leading-tight text-[#101B2D] sm:text-5xl">{vehicle.displayName}</h1>
+                <h1 className="text-4xl font-bold leading-tight text-[#101B2D] sm:text-5xl">{vehicle.displayName}</h1>
                 <p className="mt-3 text-lg font-medium text-[#667085]">
                   {vehicle.category} â€¢ {vehicle.fuel}
                 </p>
               </div>
               <span
-                className={`inline-flex w-max items-center gap-2 rounded-full px-4 py-2 text-sm font-black ${
+                className={`inline-flex w-max items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold ${
                   vehicle.available ? "bg-[#E3F2FF] text-[#087E9F]" : "bg-[#FDE5E7] text-[#C74A58]"
                 }`}
               >
@@ -214,17 +214,17 @@ export default async function VehicleDetailPage({ params }: VehicleDetailPagePro
               {specs.map((spec) => (
                 <article key={spec.label} className="rounded-xl border border-[#D5DDEA] bg-white px-5 py-6 text-center shadow-sm">
                   <Icon name={spec.icon} className="mx-auto h-8 w-8 text-[#0E3FA8]" />
-                  <p className="mt-3 text-xs font-black text-[#667085]">{spec.label}</p>
-                  <p className="mt-2 text-lg font-black text-[#132033]">{spec.value}</p>
+                  <p className="mt-3 text-xs font-semibold text-[#667085]">{spec.label}</p>
+                  <p className="mt-2 text-lg font-semibold text-[#132033]">{spec.value}</p>
                 </article>
               ))}
             </div>
 
             <div className="mt-8 border-t border-[#DDE5F0] pt-8">
-              <h2 className="text-2xl font-black text-[#132033]">Deskripsi Kendaraan</h2>
+              <h2 className="text-2xl font-semibold text-[#132033]">Deskripsi Kendaraan</h2>
               <p className="mt-5 max-w-3xl text-lg leading-8 text-[#5D6677]">{vehicle.description}</p>
 
-              <h3 className="mt-8 text-base font-black text-[#132033]">Fitur Termasuk:</h3>
+              <h3 className="mt-8 text-base font-semibold text-[#132033]">Fitur Termasuk:</h3>
               <div className="mt-4 grid gap-4 text-base font-medium text-[#5D6677] sm:grid-cols-2">
                 {vehicle.features.map((feature, index) => (
                   <div key={feature} className="flex items-center gap-3">
@@ -236,7 +236,7 @@ export default async function VehicleDetailPage({ params }: VehicleDetailPagePro
             </div>
 
             <div className="mt-8 rounded-xl border border-[#D5DDEA] bg-white p-6 shadow-sm">
-              <h2 className="text-xl font-black text-[#132033]">Syarat Penyewaan</h2>
+              <h2 className="text-xl font-semibold text-[#132033]">Syarat Penyewaan</h2>
               <div className="mt-5 grid gap-4 text-base text-[#5D6677] sm:grid-cols-3">
                 {["KTP dan SIM aktif", "DP minimal 50%", "Konfirmasi maksimal 1 jam"].map((requirement) => (
                   <div key={requirement} className="flex items-start gap-3">
@@ -252,7 +252,7 @@ export default async function VehicleDetailPage({ params }: VehicleDetailPagePro
 
           <aside className="lg:sticky lg:top-28 lg:self-start">
             <section className="rounded-xl border border-[#D5DDEA] bg-white p-6 shadow-sm">
-              <p className="text-3xl font-black text-[#101B2D]">
+              <p className="text-3xl font-semibold text-[#101B2D]">
                 {formatRupiah(vehicle.dailyRate)}
                 <span className="text-base font-semibold text-[#667085]"> / hari</span>
               </p>
@@ -263,8 +263,8 @@ export default async function VehicleDetailPage({ params }: VehicleDetailPagePro
                   ["Selesai", "27 Okt"],
                 ].map(([label, date]) => (
                   <div key={label} className="border-r border-[#E1E7F0] px-4 py-4 last:border-r-0">
-                    <p className="text-xs font-black text-[#667085]">{label}</p>
-                    <p className="mt-1 flex items-center gap-2 text-base font-black text-[#132033]">
+                    <p className="text-xs font-semibold text-[#667085]">{label}</p>
+                    <p className="mt-1 flex items-center gap-2 text-base font-semibold text-[#132033]">
                       <Icon name="calendar" className="h-5 w-5 text-[#132033]" />
                       {date}
                     </p>
@@ -286,7 +286,7 @@ export default async function VehicleDetailPage({ params }: VehicleDetailPagePro
                   <span>Biaya Layanan</span>
                   <span className="font-semibold">{formatRupiah(serviceFee)}</span>
                 </div>
-                <div className="mt-4 flex justify-between gap-4 border-t border-[#D1DDF3] pt-4 font-black text-[#132033]">
+                <div className="mt-4 flex justify-between gap-4 border-t border-[#D1DDF3] pt-4 font-semibold text-[#132033]">
                   <span>Total</span>
                   <span className="text-[#0E3FA8]">{formatRupiah(total)}</span>
                 </div>
@@ -294,7 +294,7 @@ export default async function VehicleDetailPage({ params }: VehicleDetailPagePro
 
               <Link
                 href={`/checkout/${vehicle.slug}`}
-                className={`mt-7 flex w-full items-center justify-center gap-2 rounded-lg px-5 py-4 text-base font-black text-white ${
+                className={`mt-7 flex w-full items-center justify-center gap-2 rounded-lg px-5 py-4 text-base font-semibold text-white ${
                   vehicle.available ? "bg-[#0E3FA8] hover:bg-[#0B348D]" : "pointer-events-none bg-[#AEB8C8]"
                 }`}
                 aria-disabled={!vehicle.available}
