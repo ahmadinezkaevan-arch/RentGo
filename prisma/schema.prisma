@@ -1,0 +1,194 @@
+// Prisma schema — RentGo (Rental Kendaraan)
+// Sumber kebutuhan: PRD v1.0 (User Roles, Functional Requirements 6.x)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Autentikasi & Akun ────────────────────────────────────────────
+
+enum Role {
+  ADMIN
+  CUSTOMER
+}
+
+enum DocType {
+  KTP
+  SIM
+}
+
+enum DocStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  passwordHash  String    @map("password_hash") // bcrypt/argon2, TIDAK pernah plaintext
+  name          String
+  phone         String?   @unique
+  address       String?
+  role          Role      @default(CUSTOMER)
+  isActive      Boolean   @default(true) @map("is_active")
+  identityDocs  IdentityDoc[]
+  bookings      Booking[]
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+// PRD "Upload Dokumen Identitas": foto KTP & SIM diverifikasi admin
+model IdentityDoc {
+  id          String    @id @default(uuid())
+  userId      String    @map("user_id")
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type        DocType
+  fileUrl     String    @map("file_url") // Supabase Storage path/URL
+  status      DocStatus @default(PENDING)
+  reviewedBy  String?   @map("reviewed_by") // admin user id
+  reviewedAt  DateTime? @map("reviewed_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  @@unique([userId, type])
+  @@map("identity_docs")
+}
+
+// ─── Katalog Kendaraan ─────────────────────────────────────────────
+
+model Category {
+  id       String    @id @default(uuid())
+  name     String    @unique // "Mobil", "Motor", dst (PRD: Kelola Kategori)
+  slug     String    @unique
+  vehicles Vehicle[]
+
+  @@map("categories")
+}
+
+enum VehicleStatus {
+  AVAILABLE
+  RENTED
+  MAINTENANCE
+  INACTIVE
+}
+
+model Vehicle {
+  id           String   @id @default(uuid())
+  slug         String   @unique
+  name         String
+  year         Int
+  categoryId   String   @map("category_id")
+  category     Category @relation(fields: [categoryId], references: [id])
+  fuel         String   @default("Bensin")
+  seats        Int
+  transmission String // "Matic" | "Manual"
+  baggage      String?
+  dailyRate    Int      @map("daily_rate") // rupiah/hari, integer agar tanpa float rounding
+  status       VehicleStatus @default(AVAILABLE)
+  description  String?
+  features     String[] // PRD: fitur-fitur kendaraan
+  imageUrl     String?  @map("image_url")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  bookings Booking[]
+
+  @@index([categoryId])
+  @@index([status])
+  @@map("vehicles")
+}
+
+// ─── Pemesanan & Pembayaran ────────────────────────────────────────
+
+enum BookingStatus {
+  PENDING_PAYMENT // order dibuat, DP belum dibayar
+  AWAITING_VERIFICATION // DP dibayar, menunggu verifikasi admin (PRD: verifikasi identitas & pesanan)
+  CONFIRMED
+  ACTIVE // unit sudah diserahterimakan
+  COMPLETED
+  CANCELLED // dengan/atau tanpa refund DP
+  REJECTED
+}
+
+enum PaymentMethod {
+  TRANSFER
+  QRIS
+  CASH
+  ONLINE_GATEWAY
+}
+
+enum PaymentStatus {
+  UNPAID
+  PENDING
+  PAID
+  REFUNDED
+  PARTIALLY_REFUNDED
+}
+
+model Booking {
+  id           String @id @default(uuid())
+  code         String @unique // kode booking manusia-baca, mis. RG-2026-0001
+  userId       String @map("user_id")
+  user         User   @relation(fields: [userId], references: [id], onDelete: Restrict)
+  vehicleId    String @map("vehicle_id")
+  vehicle      Vehicle @relation(fields: [vehicleId], references: [id], onDelete: Restrict)
+
+  startDate    DateTime @map("start_date") // tanggal ambil
+  endDate      DateTime @map("end_date") // tanggal kembali
+  days         Int // dihitung sistem, disimpan agar laporan stabil
+  dailyRate    Int    @map("daily_rate") // snapshot harga saat order (harga bisa berubah nanti)
+  discountPct  Int    @default(0) @map("discount_pct") // PRD: Diskon Sewa Jangka Panjang
+  totalAmount  Int    @map("total_amount") // (days * dailyRate) * (100 - discountPct)/100
+  dpAmount     Int    @map("dp_amount") // 50% DP (PRD: Pembayaran Sewa DP & Pelunasan)
+  remainder    Int    @map("remainder_amount") // sisa 50%
+
+  status       BookingStatus @default(PENDING_PAYMENT)
+  note         String?
+  cancelReason String?  @map("cancel_reason")
+  cancelledAt  DateTime?  @map("cancelled_at")
+  rejectedAt   DateTime?  @map("rejected_at")
+
+  payments     Payment[]
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  // Anti double-booking (PRD: jadwal bertabrakan): satu unit tak boleh
+  // punya 2 booking aktif tumpang tindih. CHECK constraint / EXCLUDE
+  // ditambahkan di migration manual atau validasi rentang di aplikasi.
+  @@index([vehicleId, startDate, endDate])
+  @@index([userId, status])
+  @@map("bookings")
+}
+
+enum PaymentType {
+  DP
+  REMAINDER
+  REFUND
+}
+
+model Payment {
+  id          String @id @default(uuid())
+  bookingId   String @map("booking_id")
+  booking     Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  type        PaymentType
+  amount      Int
+  method      PaymentMethod
+  status      PaymentStatus @default(UNPAID)
+  proofUrl    String? @map("proof_url") // bukti transfer dari pelanggan (Storage)
+  verifiedBy  String? @map("verified_by") // admin id
+  verifiedAt  DateTime? @map("verified_at")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@index([bookingId])
+  @@map("payments")
+}
+
+// ─── Ulasan (PRD: fitur ulasan — nilai reputasi dari review) ───────
+// Catatan: PRD tidak eksplisit menyebut review, jadi ini sengaja TIDAK dibuat
+// agar database = spesifikasi. Tambah nanti kalau dibutuhkan.
