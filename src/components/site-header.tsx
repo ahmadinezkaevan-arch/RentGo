@@ -1,7 +1,7 @@
 ﻿import Link from "next/link";
 
 type SiteHeaderProps = {
-  activePage?: "home" | "kendaraan" | "tentang";
+  activePage?: "home" | "kendaraan" | "tentang" | "faq";
   isAuthenticated?: boolean;
 };
 
@@ -9,7 +9,7 @@ const navLinks = [
   { label: "Home", href: "/", key: "home" },
   { label: "Kendaraan", href: "/kendaraan", key: "kendaraan" },
   { label: "Tentang Kami", href: "/tentang-kami", key: "tentang" },
-  { label: "Bantuan", href: "/#bantuan" },
+  { label: "Bantuan", href: "/faq", key: "faq" },
 ] as const;
 
 function Icon({ name, className }: { name: "car" | "bell"; className?: string }) {
@@ -103,4 +103,5 @@ export function SiteHeader({ activePage, isAuthenticated = false }: SiteHeaderPr
     </header>
   );
 }
+
 

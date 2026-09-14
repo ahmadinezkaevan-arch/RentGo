@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
 function Icon({ name, className }: { name: "car" | "mail" | "phone"; className?: string }) {
   const paths = {
@@ -69,7 +69,12 @@ export function SiteFooter() {
           <div>
             <h3 className="text-base font-semibold text-white">Bantuan</h3>
             <ul className="mt-5 space-y-3 text-base">
-              <li>
+                            <li>
+                <Link href="/faq" className="hover:text-white">
+                  Pertanyaan umum
+                </Link>
+              </li>
+<li>
                 <Link href="/#aturan" className="hover:text-white">
                   Kebijakan Privasi
                 </Link>
@@ -103,9 +108,13 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-14 border-t border-white/15 pt-7 text-sm text-[#AEB5B3]">
-          © 2024 RentGo Indonesia. All rights reserved.
+          &copy; 2024 RentGo Indonesia. All rights reserved.
         </div>
       </div>
     </footer>
   );
 }
+
+
+
+
