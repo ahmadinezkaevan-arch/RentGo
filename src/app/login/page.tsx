@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -55,8 +55,8 @@ export default function LoginPage() {
               className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#10213D]/88 via-[#10213D]/40 to-transparent" />
-            <Link href="/" className="absolute left-5 top-5 text-xl font-semibold tracking-tight text-white">
-              RentGo
+            <Link href="/" className="absolute left-5 top-5" aria-label="RentGo beranda">
+              <Image src="/referensi/Logo%20RentGo.svg" alt="RentGo" width={174} height={58} className="h-9 w-auto brightness-0 invert" />
             </Link>
             <div className="absolute bottom-5 left-5 right-5 text-white sm:bottom-6 sm:left-6 sm:right-6">
               <h1 className="max-w-sm text-2xl font-bold leading-tight sm:text-3xl">

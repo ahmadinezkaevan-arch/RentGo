@@ -75,17 +75,17 @@ function FilterSidebar() {
   return (
     <aside className="lg:sticky lg:top-24 lg:self-start">
       <div className="rounded-none bg-[#F5F7FC] lg:pr-6">
-        <div className="flex items-center justify-between border-b border-[#D9E0EC] pb-5">
+        <div className="flex items-center justify-between border-b border-[#D9E0EC] pb-3">
           <h1 className="text-2xl font-semibold text-[#132033]">Filters</h1>
           <button type="button" className="text-sm font-semibold text-[#0E3FA8]">
             Reset All
           </button>
         </div>
 
-        <div className="space-y-9 pt-8">
+        <div className="space-y-5 pt-5">
           <section>
             <h2 className="text-base font-semibold text-[#414B5D]">Tipe Kendaraan</h2>
-            <div className="mt-4 space-y-3">
+            <div className="mt-2.5 space-y-2">
               {["Mobil", "Motor"].map((type) => (
                 <label key={type} className="flex items-center gap-3 text-base text-[#475467]">
                   <input type="checkbox" className="h-4 w-4 rounded border-[#C8D0DD] text-[#0E3FA8]" />
@@ -97,20 +97,20 @@ function FilterSidebar() {
 
           <section>
             <h2 className="text-base font-semibold text-[#414B5D]">Harga / Hari</h2>
-            <div className="mt-4 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
-              <input className="min-w-0 rounded-lg border border-[#C8D0DD] bg-white px-4 py-3 text-base outline-none placeholder:text-[#8A94A6]" placeholder="Min" />
+            <div className="mt-2.5 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+              <input className="min-w-0 rounded-lg border border-[#C8D0DD] bg-white px-3 py-2.5 text-sm outline-none placeholder:text-[#8A94A6]" placeholder="Min" />
               <span className="text-[#A6AFBE]">-</span>
-              <input className="min-w-0 rounded-lg border border-[#C8D0DD] bg-white px-4 py-3 text-base outline-none placeholder:text-[#8A94A6]" placeholder="Max" />
+              <input className="min-w-0 rounded-lg border border-[#C8D0DD] bg-white px-3 py-2.5 text-sm outline-none placeholder:text-[#8A94A6]" placeholder="Max" />
             </div>
           </section>
 
           <section>
             <h2 className="text-base font-semibold text-[#414B5D]">Transmisi</h2>
-            <div className="mt-4 grid grid-cols-2 gap-2">
-              <button type="button" className="rounded-lg border border-[#C8D0DD] bg-white px-4 py-2.5 text-sm font-semibold text-[#4B5565]">
+            <div className="mt-2.5 grid grid-cols-2 gap-2">
+              <button type="button" className="rounded-lg border border-[#C8D0DD] bg-white px-3 py-2 text-sm font-semibold text-[#4B5565]">
                 Manual
               </button>
-              <button type="button" className="rounded-lg bg-[#0E3FA8] px-4 py-2.5 text-sm font-semibold text-white">
+              <button type="button" className="rounded-lg bg-[#0E3FA8] px-3 py-2 text-sm font-semibold text-white">
                 Matic
               </button>
             </div>
@@ -118,13 +118,13 @@ function FilterSidebar() {
 
           <section>
             <h2 className="text-base font-semibold text-[#414B5D]">Kapasitas (Kursi)</h2>
-            <button type="button" className="mt-4 flex w-full items-center justify-between rounded-lg border border-[#C8D0DD] bg-white px-4 py-3 text-left text-base text-[#344054]">
+            <button type="button" className="mt-2.5 flex w-full items-center justify-between rounded-lg border border-[#C8D0DD] bg-white px-3 py-2.5 text-left text-base text-[#344054]">
               Semua Kapasitas
               <Icon name="chevron" className="h-5 w-5 text-[#667085]" />
             </button>
           </section>
 
-          <button type="button" className="w-full rounded-lg bg-[#0E3FA8] px-5 py-4 text-base font-semibold text-white">
+          <button type="button" className="w-full rounded-lg bg-[#0E3FA8] px-4 py-3 text-sm font-semibold text-white">
             Terapkan Filter
           </button>
         </div>

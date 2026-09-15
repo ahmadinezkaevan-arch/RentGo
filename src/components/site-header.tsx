@@ -1,4 +1,5 @@
-﻿import Link from "next/link";
+import Image from "next/image";
+import Link from "next/link";
 
 type SiteHeaderProps = {
   activePage?: "home" | "kendaraan" | "tentang" | "faq";
@@ -48,9 +49,8 @@ export function SiteHeader({ activePage, isAuthenticated = false }: SiteHeaderPr
   return (
     <header className="sticky top-0 z-50 border-b border-[#E4E9F2] bg-white">
       <div className="mx-auto flex h-20 max-w-[1232px] items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-2 text-[#0E3FA8]" aria-label="RentGo beranda">
-          <Icon name="car" className="h-5 w-5" />
-          <span className="text-2xl font-semibold tracking-tight">RentGo</span>
+        <Link href="/" className="flex items-center" aria-label="RentGo beranda">
+          <Image src="/referensi/Logo%20RentGo.svg" alt="RentGo" width={174} height={58} priority className="h-14 w-auto sm:h-16" />
         </Link>
 
         <nav className="hidden items-center gap-8 text-base font-semibold text-[#4B5565] md:flex">
@@ -103,5 +103,6 @@ export function SiteHeader({ activePage, isAuthenticated = false }: SiteHeaderPr
     </header>
   );
 }
+
 
 

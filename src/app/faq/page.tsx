@@ -1,8 +1,10 @@
-﻿import type { Metadata } from "next";
+﻿import Image from "next/image";
+import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { FAQAccordion } from "./faq-accordion";
 
 export const metadata: Metadata = {
   title: "FAQ & Bantuan | RentGo",
@@ -26,12 +28,6 @@ function Icon({ name, className = "h-5 w-5" }: { name: IconName; className?: str
   return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">{paths[name]}</svg>;
 }
 
-const categories = [
-  { label: "Pemesanan", href: "#pemesanan", icon: "calendar" as IconName },
-  { label: "Pembayaran", href: "#pembayaran", icon: "wallet" as IconName },
-  { label: "Dokumen", href: "#dokumen", icon: "shield" as IconName },
-  { label: "Kendaraan", href: "#kendaraan", icon: "car" as IconName },
-];
 
 const faqs = [
   {
@@ -85,18 +81,16 @@ const quickFacts = [
 export default function FAQPage() {
   return <main className="min-h-screen bg-white">
     <SiteHeader activePage="faq"/>
-    <section className="relative overflow-hidden border-b border-[#dce5f1] bg-[#eef4fc]">
-      <div className="absolute -right-20 -top-32 hidden h-80 w-80 sm:block rounded-full border-[52px] border-white/40" aria-hidden="true"/>
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-[#d3dfef]" aria-hidden="true"/>
-      <div className="relative mx-auto max-w-[1232px] px-4 py-14 sm:px-6 sm:py-18 lg:px-8 lg:py-20">
+    <section className="relative overflow-hidden border-y border-[#dce5f1] bg-[#10213d] md:aspect-[32/15]">
+      <div className="relative aspect-[32/15] w-full md:absolute md:inset-0 md:aspect-auto">
+        <Image src="/referensi/Background.jpg" alt="" fill priority sizes="100vw" className="object-contain object-center" />
+      </div>
+      <div className="absolute inset-0 hidden bg-gradient-to-r from-[#07172d]/85 via-[#07172d]/35 to-transparent md:block" aria-hidden="true" />
+      <div className="relative mx-auto max-w-[1232px] px-4 py-9 sm:px-6 md:flex md:h-full md:items-center md:py-0 lg:px-8">
         <div className="max-w-[720px]">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#c9d9ec] bg-white/70 px-3 py-1.5 text-sm font-semibold text-[#1346a0]"><Icon name="help" className="h-4 w-4"/>Pusat bantuan RentGo</div>
-          <h1 className="text-4xl font-bold leading-[1.12] tracking-[-0.04em] text-[#132033] sm:text-5xl">Ada yang ingin ditanyakan sebelum perjalanan?</h1>
-          <p className="mt-5 max-w-[650px] text-base leading-8 text-[#506078] sm:text-lg">Temukan jawaban tentang booking, pembayaran, dokumen, serta aturan pengambilan dan pengembalian kendaraan.</p>
+          <h1 className="text-4xl font-bold leading-[1.12] tracking-[-0.04em] text-white sm:text-5xl">Ada yang ingin ditanyakan sebelum perjalanan?</h1>
+          <p className="mt-5 max-w-[650px] text-base leading-8 text-white/85 sm:text-lg">Temukan jawaban tentang booking, pembayaran, dokumen, serta aturan pengambilan dan pengembalian kendaraan.</p>
         </div>
-        <nav className="mt-9 flex flex-wrap gap-2.5" aria-label="Kategori FAQ">
-          {categories.map(category=><Link key={category.label} href={category.href} className="inline-flex items-center gap-2 rounded-lg border border-[#cbd8e8] bg-white px-4 py-2.5 text-sm font-semibold text-[#34455d] shadow-[0_2px_8px_rgba(27,57,94,.04)] hover:border-[#7ea3d7] hover:text-[#1346a0] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1346a0]"><Icon name={category.icon} className="h-4 w-4"/>{category.label}</Link>)}
-        </nav>
       </div>
     </section>
 
@@ -128,19 +122,7 @@ export default function FAQPage() {
           <div><p className="text-sm font-semibold text-[#147c4c]">Jawaban cepat</p><h2 className="mt-2 text-3xl font-bold tracking-[-0.03em] text-[#132033]">Pertanyaan yang sering diajukan</h2></div>
           <p className="text-sm text-[#657489]">{faqs.length} topik bantuan</p>
         </div>
-        <div className="divide-y divide-[#dce5f0]">
-          {faqs.map((faq,index)=><details id={faq.id} key={faq.question} open={index===0} className="group scroll-mt-28">
-            <summary className="flex cursor-pointer list-none items-start gap-5 py-6 marker:content-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1346a0]">
-              <span className="flex-1 text-base font-semibold leading-7 text-[#1b2a3e] sm:text-lg">{faq.question}</span>
-              <span className="relative mt-1 grid h-7 w-7 shrink-0 place-items-center rounded-full border border-[#bfcddd] text-[#1346a0] group-open:bg-[#1346a0] group-open:text-white">
-                <span className="h-px w-3 bg-current"/>
-                <span className="absolute h-3 w-px bg-current group-open:hidden"/>
-              </span>
-            </summary>
-            <div className="-mt-2 max-w-[720px] pb-6 pr-10 text-sm leading-7 text-[#5b6a7e] sm:text-base">{faq.answer}</div>
-          </details>)}
-        </div>
-      </div>
+        <FAQAccordion items={faqs} />    </div>
     </section>
 
     <section className="border-y border-[#dce5f0] bg-[#f7fafd]">
@@ -153,4 +135,12 @@ export default function FAQPage() {
     <SiteFooter/>
   </main>;
 }
+
+
+
+
+
+
+
+
 

@@ -1,4 +1,5 @@
-﻿import Link from "next/link";
+import Image from "next/image";
+import Link from "next/link";
 
 function Icon({ name, className }: { name: "car" | "mail" | "phone"; className?: string }) {
   const paths = {
@@ -41,9 +42,8 @@ export function SiteFooter() {
       <div className="mx-auto max-w-[1232px] px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-10 md:grid-cols-[1.45fr_0.9fr_0.9fr_1fr]">
           <div>
-            <Link href="/" className="inline-flex items-center gap-2 text-white" aria-label="RentGo beranda">
-              <Icon name="car" className="h-5 w-5" />
-              <span className="text-2xl font-semibold tracking-tight">RentGo</span>
+            <Link href="/" className="inline-flex items-center" aria-label="RentGo beranda">
+              <Image src="/referensi/Logo%20RentGo.svg" alt="RentGo" width={174} height={58} className="h-10 w-auto brightness-0 invert" />
             </Link>
             <p className="mt-5 max-w-xs text-base leading-7 text-[#B8BEBC]">
               Solusi mobilitas modern dan terpercaya untuk setiap perjalanan Anda.

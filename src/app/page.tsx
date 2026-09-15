@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -214,15 +214,15 @@ function Hero() {
           sizes="100vw"
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#F7FAFD] via-[#F7FAFD]/88 to-[#F7FAFD]/18" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#F7FAFD]/82 via-[#F7FAFD]/48 to-transparent" />
       </div>
 
       <div className="relative mx-auto max-w-[1232px] px-4 pb-10 pt-16 sm:px-6 lg:px-8 lg:pb-14 lg:pt-24">
         <div className="max-w-2xl">
           <h1 className="text-4xl font-bold leading-tight tracking-tight text-[#132033] sm:text-5xl lg:text-6xl">
-            Sewa kendaraan lebih cepat, tercatat, dan siap jalan.
+            Sewa kendaraan lebih cepat dan siap jalan.
           </h1>
-          <p className="mt-5 max-w-xl text-base leading-8 text-[#445168] sm:text-lg">
+          <p className="mt-5 max-w-xl text-base font-medium leading-8 text-[#203651] sm:text-lg">
             RentGo membantu pelanggan melihat armada tersedia, menghitung biaya sewa, membayar DP, dan memantau status pesanan. Admin mengelola kendaraan, transaksi, serta laporan dari satu tempat.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -477,3 +477,5 @@ export default function Home() {
     </main>
   );
 }
+
+
