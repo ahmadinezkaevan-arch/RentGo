@@ -1,4 +1,4 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -169,39 +169,6 @@ function Icon({ name, className }: { name: string; className?: string }) {
   );
 }
 
-function BookingPanel() {
-  return (
-    <form id="pesan" className="grid gap-3 rounded-lg border border-[#D5DFEC] bg-white p-4 shadow-xl shadow-[#10213D]/10 md:grid-cols-[1.1fr_0.8fr_0.8fr_0.8fr_auto]">
-      <label className="flex min-w-0 items-center gap-3 rounded-md border border-[#DDE5F0] bg-[#F7FAFD] px-3 py-3">
-        <Icon name="pin" className="h-5 w-5 shrink-0 text-[#1346A0]" />
-        <span className="min-w-0 flex-1">
-          <span className="block text-[11px] font-semibold text-[#66758D]">Lokasi ambil</span>
-          <input className="w-full bg-transparent text-sm font-semibold text-[#132033] outline-none placeholder:text-[#8A96A8]" placeholder="Surabaya" />
-        </span>
-      </label>
-      <label className="rounded-md border border-[#DDE5F0] bg-[#F7FAFD] px-3 py-3">
-        <span className="block text-[11px] font-semibold text-[#66758D]">Kategori</span>
-        <select className="w-full bg-transparent text-sm font-semibold text-[#132033] outline-none">
-          <option>Mobil</option>
-          <option>Motor</option>
-        </select>
-      </label>
-      <label className="rounded-md border border-[#DDE5F0] bg-[#F7FAFD] px-3 py-3">
-        <span className="block text-[11px] font-semibold text-[#66758D]">Tanggal sewa</span>
-        <input type="date" className="w-full bg-transparent text-sm font-semibold text-[#132033] outline-none" />
-      </label>
-      <label className="rounded-md border border-[#DDE5F0] bg-[#F7FAFD] px-3 py-3">
-        <span className="block text-[11px] font-semibold text-[#66758D]">Tanggal kembali</span>
-        <input type="date" className="w-full bg-transparent text-sm font-semibold text-[#132033] outline-none" />
-      </label>
-      <button className="inline-flex items-center justify-center gap-2 rounded-md bg-[#147C4C] px-5 py-3 text-sm font-semibold text-white hover:bg-[#0F633C]" type="button">
-        <Icon name="search" className="h-4 w-4" />
-        Cari
-      </button>
-    </form>
-  );
-}
-
 function Hero() {
   return (
     <section className="relative overflow-hidden bg-[#EEF3FA]">
@@ -226,7 +193,7 @@ function Hero() {
             RentGo membantu pelanggan melihat armada tersedia, menghitung biaya sewa, membayar DP, dan memantau status pesanan. Admin mengelola kendaraan, transaksi, serta laporan dari satu tempat.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="#pesan" className="inline-flex items-center gap-2 rounded-md bg-[#1346A0] px-5 py-3 text-sm font-semibold text-white hover:bg-[#0D367D]">
+            <Link href="/kendaraan" className="inline-flex items-center gap-2 rounded-md bg-[#1346A0] px-5 py-3 text-sm font-semibold text-white hover:bg-[#0D367D]">
               Mulai pesan
               <Icon name="arrow" className="h-4 w-4" />
             </Link>
@@ -234,10 +201,6 @@ function Hero() {
               Lihat cara sewa
             </Link>
           </div>
-        </div>
-
-        <div className="mt-12 max-w-6xl">
-          <BookingPanel />
         </div>
       </div>
     </section>
@@ -286,7 +249,7 @@ function Fleet() {
               Kendaraan populer untuk kebutuhan harian.
             </h2>
           </div>
-          <Link href="#pesan" className="inline-flex w-fit items-center gap-2 rounded-md bg-white px-5 py-3 text-sm font-semibold text-[#1346A0] ring-1 ring-[#DDE5F0] hover:ring-[#1346A0]">
+          <Link href="/kendaraan" className="inline-flex w-fit items-center gap-2 rounded-md bg-white px-5 py-3 text-sm font-semibold text-[#1346A0] ring-1 ring-[#DDE5F0] hover:ring-[#1346A0]">
             Cek ketersediaan
             <Icon name="arrow" className="h-4 w-4" />
           </Link>
@@ -450,7 +413,7 @@ function Help() {
             </div>
           </div>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Link href="#pesan" className="rounded-md bg-[#1346A0] px-5 py-3 text-sm font-semibold text-white hover:bg-[#0D367D]">
+            <Link href="/kendaraan" className="rounded-md bg-[#1346A0] px-5 py-3 text-sm font-semibold text-white hover:bg-[#0D367D]">
               Pesan kendaraan
             </Link>
             <Link href="#armada" className="rounded-md bg-white px-5 py-3 text-sm font-semibold text-[#132033] ring-1 ring-[#DDE5F0] hover:ring-[#1346A0]">

@@ -1,0 +1,70 @@
+SEGMEN PELANGGAN (Customer Segments)
+- Perorangan tanpa kendaraan pribadi (mendadak/acara/mudik)
+- Mahasiswa & pekerja perantau di luar kota
+- Karyawan / perusahaan untuk perjalanan dinas
+- Keluarga: acara pernikahan, tour, liburan
+- Penyewa jangka panjang (butuh diskon mingguan/bulanan)
+- Internal: admin/pemilik rental sebagai pengelola sistem
+
+PROPOSISI NILAI (Value Propositions)
+- Cek ketersediaan kendaraan real-time, tanpa datang/telepon
+- Anti double-booking: validasi tanggal sewa otomatis
+- Harga transparan: biaya per hari + diskon jangka panjang dihitung sistem
+- Pemesanan & bayar DP 50% online dengan verifikasi bukti bayar
+- Dokumen KTP/SIM diverifikasi admin - aman bagi kedua pihak
+- Pencatatan digital rapi: riwayat sewa & laporan transaksi
+- Kebatalan & refund jelas (100/90/75/0% sesuai jarak hari)
+
+SALURAN (Channels)
+- Website RentGo (beranda, daftar kendaraan, detail, FAQ)
+- Media sosial & promosi digital
+- SEO lokal & Google Maps (pencarian rental terdekat)
+- Mulut ke mulut pelanggan lama
+- Kerja sama hotel / travel / panitia acara
+
+HUBUNGAN PELANGGAN (Customer Relationships)
+- Self-service: cari, pesan, bayar, pantau status sendiri
+- Verifikasi manual admin (dokumen & pembayaran) = rasa percaya
+- Notifikasi status pesanan (pending/confirmed/aktif/selesai)
+- Halaman FAQ / Bantuan & Tentang Kami
+- Layanan purna jual: denda keterlambatan & penanganan kerusakan
+
+ARUS PENDAPATAN (Revenue Streams)
+- Hasil sewa harian kendaraan (mobil & motor)
+- Sewa jangka panjang: volume stabil meski ada diskon durasi
+- Biaya keterlambatan pengembalian
+- Denda kerusakan / kehilangan kendaraan
+- Layanan antar-jemput kendaraan (biaya tambahan)
+- Biaya layanan / admin fee kanal pembayaran (opsional)
+
+MITRA KUNCI (Key Partners)
+- Payment gateway / bank (transfer, QRIS, pembayaran online)
+- Cloud hosting & storage (Supabase/PostgreSQL)
+- Bengkel resmi & toko suku cadang (perawatan armada)
+- Pemilik lahan / garasi parkir armada
+- Operator wisata, travel, & hotel (referal sewa)
+- Asuransi kendaraan & jasa derek/tarik
+
+AKTIVITAS KUNCI (Key Activities)
+- Pengembangan & pemeliharaan platform web (Next.js)
+- Kelola ketersediaan, status, & perawatan kendaraan
+- Verifikasi KTP/SIM & konfirmasi pembayaran (DP/lunas)
+- Pencatatan transaksi & penyusunan laporan
+- Pemasaran & akuisisi pelanggan
+- Customer service, penanganan klaim & kerusakan
+
+SUMBER DAYA KUNCI (Key Resources)
+- Platform web RentGo (Next.js + Tailwind, PostgreSQL/Supabase)
+- Armada kendaraan: mobil & motor
+- Data kendaraan, pelanggan, booking, pembayaran
+- SDM admin / pemilik usaha
+- Lokasi rental & tempat parkir
+- SOP verifikasi dokumen & serah terima unit
+
+STRUKTUR BIAYA (Cost Structure)
+- Pembelian / leasing armada & penyusutan kendaraan
+- Bensin, servis, suku cadang, & parkir
+- Hosting, domain, storage, & biaya payment gateway
+- Gaji admin & tenaga operasional
+- Pemasaran & promosi
+- Pengembangan & maintenance platform

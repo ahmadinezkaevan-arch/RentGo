@@ -43,7 +43,7 @@ export function SiteFooter() {
         <div className="grid gap-10 md:grid-cols-[1.45fr_0.9fr_0.9fr_1fr]">
           <div>
             <Link href="/" className="inline-flex items-center" aria-label="RentGo beranda">
-              <Image src="/referensi/Logo%20RentGo.svg" alt="RentGo" width={174} height={58} className="h-10 w-auto brightness-0 invert" />
+              <Image src="/referensi/Logo%20RentGo.svg" alt="RentGo" width={174} height={58} className="h-6 w-auto brightness-0 invert" />
             </Link>
             <p className="mt-5 max-w-xs text-base leading-7 text-[#B8BEBC]">
               Solusi mobilitas modern dan terpercaya untuk setiap perjalanan Anda.
