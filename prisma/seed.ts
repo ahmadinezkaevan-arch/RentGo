@@ -63,6 +63,7 @@ async function main() {
       seats: 7,
       transmission: "Matic",
       baggage: "2 Koper Besar",
+      imageUrl: "/referensi/toyota_avanza.webp",
       dailyRate: 500000,
       status: "AVAILABLE" as const,
       description:
@@ -83,6 +84,7 @@ async function main() {
       seats: 4,
       transmission: "Matic",
       baggage: "1 Koper Sedang",
+      imageUrl: "/referensi/honda_brio.webp",
       dailyRate: 350000,
       status: "AVAILABLE" as const,
       description:
@@ -103,6 +105,7 @@ async function main() {
       seats: 2,
       transmission: "Matic",
       baggage: "Bagasi Helm",
+      imageUrl: "/referensi/honda_vario160.webp",
       dailyRate: 120000,
       status: "RENTED" as const,
       description:
@@ -123,6 +126,7 @@ async function main() {
       seats: 7,
       transmission: "Manual",
       baggage: "3 Koper Sedang",
+      imageUrl: "/referensi/mitsubishi_xpander.webp",
       dailyRate: 500000,
       status: "AVAILABLE" as const,
       description:

@@ -1,10 +1,12 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
+import Form from "next/form";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { getVehicleBySlug, vehicleCatalog } from "@/lib/vehicles";
+import { getVehicleBySlug, localizeVehicle, vehicleCatalog } from "@/lib/vehicles";
+import { getLocale, pick } from "@/lib/i18n";
 
 type CheckoutPageProps = {
   params: Promise<{ slug: string }>;
@@ -126,24 +128,21 @@ function formatRupiah(value: number) {
 }
 
 export default async function CheckoutPage({ params }: CheckoutPageProps) {
-  const { slug } = await params;
-  const vehicle = getVehicleBySlug(slug);
+  const [{ slug }, locale] = await Promise.all([params, getLocale()]);
+  const sourceVehicle = getVehicleBySlug(slug);
 
-  if (!vehicle) {
+  if (!sourceVehicle) {
     notFound();
   }
 
+  const vehicle = localizeVehicle(sourceVehicle, locale);
+  const t = (id: string, en: string) => pick(locale, { id, en });
   const rentalDays = 3;
   const serviceFee = 50000;
   const driverFee = 0;
   const discount = 0;
   const subtotal = vehicle.dailyRate * rentalDays;
   const total = subtotal + serviceFee + driverFee - discount;
-  const paymentMethods = [
-    { name: "Virtual Account", detail: "BCA, Mandiri, BRI, BNI", icon: "bank" as const, selected: true },
-    { name: "E-Wallet", detail: "OVO, Dana, GoPay", icon: "wallet" as const, selected: false },
-    { name: "Kartu Kredit", detail: "Visa dan Mastercard", icon: "creditCard" as const, selected: false },
-  ];
 
   return (
     <main className="bg-[#F5F7FC]">
@@ -152,7 +151,7 @@ export default async function CheckoutPage({ params }: CheckoutPageProps) {
       <section className="mx-auto max-w-[1232px] px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
         <nav className="flex flex-wrap items-center gap-2 text-sm font-semibold text-[#667085]" aria-label="Breadcrumb">
           <Link href="/kendaraan" className="hover:text-[#0E3FA8]">
-            Kendaraan
+            {t("Kendaraan", "Vehicles")}
           </Link>
           <Icon name="chevronRight" className="h-4 w-4" />
           <Link href={`/kendaraan/${vehicle.slug}`} className="hover:text-[#0E3FA8]">
@@ -162,41 +161,16 @@ export default async function CheckoutPage({ params }: CheckoutPageProps) {
           <span className="text-[#132033]">Checkout</span>
         </nav>
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_25rem]">
-          <div className="space-y-6">
-            <section className="rounded-xl border border-[#D5DDEA] bg-white p-5 shadow-sm sm:p-6">
-              <div className="flex flex-wrap items-center justify-between gap-4">
-                <div>
-                  <h1 className="text-3xl font-semibold leading-tight text-[#101B2D] sm:text-4xl">Detail Booking</h1>
-                  <p className="mt-2 text-base font-medium text-[#667085]">Periksa data sewa sebelum melanjutkan pembayaran.</p>
-                </div>
-                <span className="inline-flex items-center gap-2 rounded-full bg-[#E3F2FF] px-4 py-2 text-sm font-semibold text-[#087E9F]">
-                  <Icon name="shield" className="h-4 w-4" />
-                  Pembayaran aman
-                </span>
-              </div>
-
-              <div className="mt-6 grid gap-4 md:grid-cols-3">
-                {[
-                  ["Booking", "Detail sewa"],
-                  ["Pembayaran", "Pilih metode"],
-                  ["Selesai", "Konfirmasi email"],
-                ].map(([title, text], index) => (
-                  <div key={title} className={`rounded-lg border px-4 py-3 ${index === 1 ? "border-[#0E3FA8] bg-[#EEF5FF]" : "border-[#D5DDEA] bg-white"}`}>
-                    <p className="text-sm font-semibold text-[#132033]">{title}</p>
-                    <p className="mt-1 text-sm text-[#667085]">{text}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <section className="rounded-xl border border-[#D5DDEA] bg-white p-5 shadow-sm sm:p-6">
-              <h2 className="text-xl font-semibold text-[#132033]">Informasi Pemesanan</h2>
+        <Form action={`/payment/${vehicle.slug}`} className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_25rem]">
+          <input type="hidden" name="location" value="RentGo Cabang Bandung" />
+          <section className="overflow-hidden rounded-xl border border-[#D5DDEA] bg-white p-5 shadow-sm sm:p-6">
+            <section>
+              <h2 className="text-xl font-semibold text-[#132033]">{t("Informasi Pemesanan", "Booking Information")}</h2>
               <div className="mt-5 grid gap-4 md:grid-cols-2">
                 <div className="rounded-lg border border-[#D5DDEA] bg-[#F8FAFE] p-4">
                   <p className="flex items-center gap-2 text-sm font-semibold text-[#667085]">
                     <Icon name="location" className="h-5 w-5 text-[#0E3FA8]" />
-                    Lokasi Pengambilan
+                    {t("Lokasi Pengambilan", "Pickup Location")}
                   </p>
                   <p className="mt-2 text-base font-semibold text-[#132033]">RentGo Cabang Bandung</p>
                   <p className="mt-1 text-sm text-[#667085]">Jl. Asia Afrika No. 12, Bandung</p>
@@ -204,59 +178,49 @@ export default async function CheckoutPage({ params }: CheckoutPageProps) {
                 <div className="rounded-lg border border-[#D5DDEA] bg-[#F8FAFE] p-4">
                   <p className="flex items-center gap-2 text-sm font-semibold text-[#667085]">
                     <Icon name="calendar" className="h-5 w-5 text-[#0E3FA8]" />
-                    Jadwal Sewa
+                    {t("Jadwal Sewa", "Rental Schedule")}
                   </p>
-                  <p className="mt-2 text-base font-semibold text-[#132033]">24 Okt, 09.00 - 27 Okt, 09.00</p>
-                  <p className="mt-1 text-sm text-[#667085]">Durasi {rentalDays} hari, lepas kunci</p>
+                  <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                    <label className="block">
+                      <span className="text-xs font-semibold text-[#667085]">{t("Tanggal mulai", "Start date")}</span>
+                      <input type="date" name="startDate" defaultValue="2026-10-24" required className="mt-1.5 h-11 w-full rounded-lg border border-[#C8D0DD] bg-white px-3 text-sm font-medium text-[#132033] outline-none focus:border-[#0E3FA8]" />
+                    </label>
+                    <label className="block">
+                      <span className="text-xs font-semibold text-[#667085]">{t("Tanggal selesai", "End date")}</span>
+                      <input type="date" name="endDate" defaultValue="2026-10-27" required className="mt-1.5 h-11 w-full rounded-lg border border-[#C8D0DD] bg-white px-3 text-sm font-medium text-[#132033] outline-none focus:border-[#0E3FA8]" />
+                    </label>
+                    <label className="block">
+                      <span className="text-xs font-semibold text-[#667085]">{t("Durasi (hari)", "Duration (days)")}</span>
+                      <input type="number" name="rentalDays" min="1" defaultValue={rentalDays} required className="mt-1.5 h-11 w-full rounded-lg border border-[#C8D0DD] bg-white px-3 text-sm font-medium text-[#132033] outline-none focus:border-[#0E3FA8]" />
+                    </label>
+                  </div>
+                  <p className="mt-3 text-sm text-[#667085]">{t("Durasi", "Duration")} {rentalDays} {t("hari, lepas kunci", "days, self-drive")}</p>
                 </div>
               </div>
             </section>
 
-            <section className="rounded-xl border border-[#D5DDEA] bg-white p-5 shadow-sm sm:p-6">
-              <h2 className="text-xl font-semibold text-[#132033]">Data Pemesan</h2>
+            <section className="border-t border-[#DDE5F0] pt-8">
+              <h2 className="text-xl font-semibold text-[#132033]">{t("Data Pemesan", "Customer Details")}</h2>
               <div className="mt-5 grid gap-4 md:grid-cols-2">
                 <label className="block">
-                  <span className="text-sm font-semibold text-[#344054]">Nama Lengkap</span>
-                  <input className="mt-2 h-12 w-full rounded-lg border border-[#C8D0DD] bg-white px-4 text-base outline-none focus:border-[#0E3FA8]" defaultValue="Ahmadinezka Evan Juanurifiki" />
+                  <span className="text-sm font-semibold text-[#344054]">{t("Nama Lengkap", "Full Name")}</span>
+                  <input className="mt-2 h-12 w-full rounded-lg border border-[#C8D0DD] bg-white px-4 text-base outline-none focus:border-[#0E3FA8]" name="fullName" defaultValue="Ahmadinezka Evan Juanurifiki" required />
                 </label>
                 <label className="block">
-                  <span className="text-sm font-semibold text-[#344054]">Nomor HP</span>
-                  <input className="mt-2 h-12 w-full rounded-lg border border-[#C8D0DD] bg-white px-4 text-base outline-none focus:border-[#0E3FA8]" defaultValue="0812-3456-7890" />
+                  <span className="text-sm font-semibold text-[#344054]">{t("Nomor HP", "Phone Number")}</span>
+                  <input className="mt-2 h-12 w-full rounded-lg border border-[#C8D0DD] bg-white px-4 text-base outline-none focus:border-[#0E3FA8]" name="phone" defaultValue="0812-3456-7890" required />
                 </label>
                 <label className="block md:col-span-2">
                   <span className="text-sm font-semibold text-[#344054]">Email</span>
-                  <input className="mt-2 h-12 w-full rounded-lg border border-[#C8D0DD] bg-white px-4 text-base outline-none focus:border-[#0E3FA8]" defaultValue="evan@rentgo.co.id" />
+                  <input className="mt-2 h-12 w-full rounded-lg border border-[#C8D0DD] bg-white px-4 text-base outline-none focus:border-[#0E3FA8]" type="email" name="email" defaultValue="evan@rentgo.co.id" required />
                 </label>
               </div>
               <div className="mt-5 flex items-start gap-3 rounded-lg bg-[#EEF5FF] p-4 text-sm font-medium text-[#4B5565]">
                 <Icon name="document" className="mt-0.5 h-5 w-5 shrink-0 text-[#0E3FA8]" />
-                <p>Dokumen KTP dan SIM akan diverifikasi kembali oleh admin sebelum unit diserahkan.</p>
+                <p>{t("Dokumen KTP dan SIM akan diverifikasi kembali oleh admin sebelum unit diserahkan.", "Your ID and driving license will be verified again before the vehicle is handed over.")}</p>
               </div>
             </section>
-
-            <section className="rounded-xl border border-[#D5DDEA] bg-white p-5 shadow-sm sm:p-6">
-              <h2 className="text-xl font-semibold text-[#132033]">Metode Pembayaran</h2>
-              <div className="mt-5 grid gap-3">
-                {paymentMethods.map((method) => (
-                  <label
-                    key={method.name}
-                    className={`flex cursor-pointer items-center gap-4 rounded-lg border p-4 ${
-                      method.selected ? "border-[#0E3FA8] bg-[#EEF5FF]" : "border-[#D5DDEA] bg-white"
-                    }`}
-                  >
-                    <input type="radio" name="payment" defaultChecked={method.selected} className="h-5 w-5 border-[#C8D0DD] text-[#0E3FA8]" />
-                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-white text-[#0E3FA8] shadow-sm">
-                      <Icon name={method.icon} className="h-6 w-6" />
-                    </span>
-                    <span className="min-w-0">
-                      <span className="block text-base font-semibold text-[#132033]">{method.name}</span>
-                      <span className="block text-sm text-[#667085]">{method.detail}</span>
-                    </span>
-                  </label>
-                ))}
-              </div>
-            </section>
-          </div>
+          </section>
 
           <aside className="lg:sticky lg:top-28 lg:self-start">
             <section className="overflow-hidden rounded-xl border border-[#D5DDEA] bg-white shadow-sm">
@@ -284,19 +248,19 @@ export default async function CheckoutPage({ params }: CheckoutPageProps) {
 
                 <div className="mt-6 rounded-lg bg-[#F8FAFE] p-4 text-sm text-[#5D6677]">
                   <div className="flex justify-between gap-4">
-                    <span>{formatRupiah(vehicle.dailyRate)} x {rentalDays} hari</span>
+                    <span>{formatRupiah(vehicle.dailyRate)} x {rentalDays} {t("hari", "days")}</span>
                     <span className="font-semibold text-[#132033]">{formatRupiah(subtotal)}</span>
                   </div>
                   <div className="mt-3 flex justify-between gap-4">
-                    <span>Biaya layanan</span>
+                    <span>{t("Biaya layanan", "Service fee")}</span>
                     <span className="font-semibold text-[#132033]">{formatRupiah(serviceFee)}</span>
                   </div>
                   <div className="mt-3 flex justify-between gap-4">
-                    <span>Supir tambahan</span>
+                    <span>{t("Supir tambahan", "Additional driver")}</span>
                     <span className="font-semibold text-[#132033]">{formatRupiah(driverFee)}</span>
                   </div>
                   <div className="mt-3 flex justify-between gap-4">
-                    <span>Diskon</span>
+                    <span>{t("Diskon", "Discount")}</span>
                     <span className="font-semibold text-[#147C4C]">-{formatRupiah(discount)}</span>
                   </div>
                   <div className="mt-4 flex justify-between gap-4 border-t border-[#DDE5F0] pt-4 text-lg font-semibold text-[#132033]">
@@ -306,34 +270,34 @@ export default async function CheckoutPage({ params }: CheckoutPageProps) {
                 </div>
 
                 <label className="mt-5 block">
-                  <span className="text-sm font-semibold text-[#344054]">Kode Voucher</span>
+                  <span className="text-sm font-semibold text-[#344054]">{t("Kode Voucher", "Voucher Code")}</span>
                   <div className="mt-2 flex gap-2">
-                    <input className="h-12 min-w-0 flex-1 rounded-lg border border-[#C8D0DD] bg-white px-4 text-base outline-none placeholder:text-[#8A94A6] focus:border-[#0E3FA8]" placeholder="Masukkan kode" />
+                    <input className="h-12 min-w-0 flex-1 rounded-lg border border-[#C8D0DD] bg-white px-4 text-base outline-none placeholder:text-[#8A94A6] focus:border-[#0E3FA8]" placeholder={t("Masukkan kode", "Enter code")} />
                     <button type="button" className="rounded-lg border border-[#0E3FA8] px-4 text-sm font-semibold text-[#0E3FA8]">
-                      Pakai
+                      {t("Pakai", "Apply")}
                     </button>
                   </div>
                 </label>
 
                 <label className="mt-5 flex items-start gap-3 text-sm font-medium text-[#5D6677]">
-                  <input type="checkbox" defaultChecked className="mt-0.5 h-5 w-5 rounded border-[#C8D0DD] text-[#0E3FA8]" />
-                  Saya menyetujui syarat penyewaan dan kebijakan pembatalan RentGo.
+                  <input type="checkbox" name="terms" value="accepted" required defaultChecked className="mt-0.5 h-5 w-5 rounded border-[#C8D0DD] text-[#0E3FA8]" />
+                  {t("Saya menyetujui syarat penyewaan dan kebijakan pembatalan RentGo.", "I agree to RentGo rental terms and cancellation policy.")}
                 </label>
 
                 <button
-                  type="button"
+                  type="submit"
                   disabled={!vehicle.available}
                   className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-[#0E3FA8] px-5 py-4 text-base font-semibold text-white disabled:bg-[#AEB8C8]"
                 >
-                  Bayar Sekarang
+                  {t("Lanjut ke Pembayaran", "Continue to Payment")}
                   <Icon name="chevronRight" className="h-5 w-5" />
                 </button>
 
-                <p className="mt-4 text-center text-sm font-medium text-[#667085]">Instruksi pembayaran dikirim setelah checkout dibuat.</p>
+                <p className="mt-4 text-center text-sm font-medium text-[#667085]">{t("Instruksi pembayaran dikirim setelah checkout dibuat.", "Payment instructions are provided after checkout.")}</p>
               </div>
             </section>
           </aside>
-        </div>
+        </Form>
       </section>
 
       <SiteFooter />

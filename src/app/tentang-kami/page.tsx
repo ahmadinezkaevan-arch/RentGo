@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { getLocale, type Locale } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: "Tentang Kami - RentGo",
@@ -10,6 +11,20 @@ export const metadata: Metadata = {
     "Kenali RentGo, platform rental kendaraan online untuk pemesanan armada, verifikasi dokumen, pembayaran DP, dan pengelolaan transaksi rental.",
 };
 
+
+const english: Record<string, string> = {
+  "Unit kendaraan siap dikelola": "Vehicle units ready to manage", "Akses informasi pemesanan": "Access to booking information", "DP untuk konfirmasi booking": "Deposit to confirm a booking", "5 detik": "5 seconds", "Target proses pencarian": "Search response target",
+  "Praktis untuk pelanggan": "Convenient for customers", "Pelanggan dapat mencari kendaraan, memilih tanggal, melihat biaya, dan membuat pesanan tanpa proses manual yang panjang.": "Customers can find vehicles, choose dates, review costs, and book without a lengthy manual process.",
+  "Transparan sejak awal": "Transparent from the start", "Harga, status kendaraan, DP, pelunasan, diskon durasi, dan aturan refund ditampilkan jelas sebelum pemesanan.": "Prices, vehicle status, deposits, balances, duration discounts, and refund terms are shown clearly before booking.",
+  "Terkelola untuk pemilik rental": "Organized for rental owners", "Admin memiliki ruang kerja untuk mengelola armada, pelanggan, transaksi, status ketersediaan, dan laporan sewa.": "Admins have a workspace to manage fleets, customers, transactions, availability, and rental reports.",
+  "Kendaraan hanya dapat dipesan jika tersedia pada rentang tanggal yang dipilih.": "A vehicle can only be booked when it is available for the selected dates.", "KTP dan SIM diverifikasi admin sebelum pesanan dikonfirmasi.": "ID and driving license documents are verified before a booking is confirmed.", "Sisa pembayaran dilunasi maksimal 24 jam sebelum serah terima.": "The remaining balance is due no later than 24 hours before handover.", "Data pelanggan dan dokumen hanya dapat diakses oleh pihak berwenang.": "Customer data and documents are accessible only to authorized personnel.",
+  "Tentang RentGo": "About RentGo", "RentGo dirancang untuk membuat rental kendaraan lebih mudah diakses, lebih rapi dicatat, dan lebih transparan bagi pelanggan maupun pemilik usaha rental.": "RentGo makes vehicle rental easier to access, better organized, and more transparent for customers and rental owners.", "Lihat kendaraan": "View vehicles", "Hubungi kami": "Contact us", "Solusi rental kendaraan online": "Online vehicle rental solution", "Cari, booking, verifikasi, dan kelola transaksi dalam satu alur.": "Find, book, verify, and manage transactions in one flow.",
+  "Profil RentGo": "RentGo Profile", "Dibuat untuk mengganti proses rental yang masih serba manual.": "Built to replace fragmented manual rental processes.", "Banyak usaha rental kendaraan masih mengandalkan pencatatan manual, pesan singkat, atau pelanggan yang harus datang langsung untuk menanyakan ketersediaan armada. Cara ini membuat informasi kendaraan, jadwal, data pelanggan, dan transaksi lebih sulit dipantau.": "Many vehicle rentals still rely on manual records, messages, or in-person availability checks. This makes vehicle information, schedules, customer data, and transactions harder to monitor.", "RentGo hadir sebagai rancangan platform berbasis website yang menghubungkan kebutuhan pelanggan dan admin rental. Pelanggan dapat mencari kendaraan, memilih jadwal, melakukan booking, mengunggah KTP dan SIM, serta memantau status sewa. Admin dapat mengelola armada, verifikasi pesanan, transaksi, dan laporan secara lebih terstruktur.": "RentGo connects customers with rental operations in one web platform. Customers can find vehicles, choose dates, book, upload documents, and track rentals, while admins manage fleets, verification, transactions, and reports.",
+  "Visi Kami": "Our Vision", "Menjadi platform rental kendaraan yang praktis, aman, dan mudah dipercaya.": "To be a practical, secure, and trusted vehicle rental platform.", "RentGo ingin membantu pelanggan menemukan kendaraan yang sesuai dengan kebutuhan perjalanan, sekaligus membantu pemilik rental mengelola usaha dengan data yang lebih rapi.": "RentGo helps customers find the right vehicle while giving rental owners better organized business data.", "Misi Kami": "Our Mission", "Membuat proses sewa lebih cepat dari pencarian sampai serah terima.": "Make rental faster from search to vehicle handover.", "Kami merancang alur yang mencakup pencarian armada, perhitungan biaya, DP, pelunasan, verifikasi dokumen, pembatalan, dan riwayat sewa dalam pengalaman web yang mudah dipahami.": "We design a clear web experience for fleet search, pricing, deposits, balances, document verification, cancellations, and rental history.",
+  "Kenapa RentGo": "Why RentGo", "Satu platform untuk perjalanan dan pengelolaan rental.": "One platform for journeys and rental operations.", "Komitmen Layanan": "Service Commitment", "Kepercayaan dibangun dari aturan yang jelas.": "Trust begins with clear policies.", "Setiap alur RentGo dirancang agar pelanggan mengetahui status pesanan dan pemilik rental memiliki dasar data untuk mengambil keputusan.": "Every RentGo flow keeps customers informed and gives rental owners reliable data for decisions.", "Siap mulai perjalanan dengan RentGo?": "Ready to travel with RentGo?", "Pilih kendaraan, lengkapi data, dan buat pesanan dengan proses yang lebih terstruktur.": "Choose a vehicle, complete your details, and book through a structured process.", "Lihat daftar kendaraan": "Browse vehicles"
+};
+
+function tr(locale: Locale, value: string) { return locale === "en" ? english[value] ?? value : value; }
 const highlights = [
   { value: "50+", label: "Unit kendaraan siap dikelola" },
   { value: "24/7", label: "Akses informasi pemesanan" },
@@ -85,13 +100,13 @@ function Icon({ name, className }: { name: string; className?: string }) {
   );
 }
 
-function Hero() {
+function Hero({ locale }: { locale: Locale }) {
   return (
     <section className="relative overflow-hidden bg-[#F5F7FC]">
       <div className="mx-auto grid max-w-[1232px] gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8 lg:py-20">
         <div className="flex flex-col justify-center">
           <h1 className="max-w-2xl text-4xl font-bold leading-tight tracking-tight text-[#132033] sm:text-5xl">
-            Tentang RentGo
+            {tr(locale, "Tentang RentGo")}
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-8 text-[#526176]">
             RentGo dirancang untuk membuat rental kendaraan lebih mudah diakses,
@@ -100,11 +115,11 @@ function Hero() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href="/kendaraan" className="inline-flex items-center gap-2 rounded-lg bg-[#0E3FA8] px-5 py-3 text-sm font-semibold text-white">
-              Lihat kendaraan
+              {tr(locale, "Lihat kendaraan")}
               <Icon name="arrow" className="h-4 w-4" />
             </Link>
             <Link href="/#bantuan" className="rounded-lg border border-[#C8D0DD] bg-white px-5 py-3 text-sm font-semibold text-[#132033]">
-              Hubungi kami
+              {tr(locale, "Hubungi kami")}
             </Link>
           </div>
         </div>
@@ -120,9 +135,9 @@ function Hero() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#10213D]/55 via-transparent to-transparent" />
           <div className="absolute bottom-5 left-5 right-5 rounded-xl bg-white/92 p-5 backdrop-blur">
-            <p className="text-sm font-semibold text-[#0E3FA8]">Solusi rental kendaraan online</p>
+            <p className="text-sm font-semibold text-[#0E3FA8]">{tr(locale, "Solusi rental kendaraan online")}</p>
             <p className="mt-2 text-2xl font-semibold text-[#132033]">
-              Cari, booking, verifikasi, dan kelola transaksi dalam satu alur.
+              {tr(locale, "Cari, booking, verifikasi, dan kelola transaksi dalam satu alur.")}
             </p>
           </div>
         </div>
@@ -131,14 +146,14 @@ function Hero() {
   );
 }
 
-function Story() {
+function Story({ locale }: { locale: Locale }) {
   return (
     <section className="bg-white py-20">
       <div className="mx-auto grid max-w-[1232px] gap-12 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
         <div>
-          <p className="text-sm font-semibold text-[#147C4C]">Profil RentGo</p>
+          <p className="text-sm font-semibold text-[#147C4C]">{tr(locale, "Profil RentGo")}</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#132033] sm:text-4xl">
-            Dibuat untuk mengganti proses rental yang masih serba manual.
+            {tr(locale, "Dibuat untuk mengganti proses rental yang masih serba manual.")}
           </h2>
         </div>
         <div className="space-y-5 text-base leading-8 text-[#526176]">
@@ -161,14 +176,14 @@ function Story() {
   );
 }
 
-function Stats() {
+function Stats({ locale }: { locale: Locale }) {
   return (
     <section className="bg-[#10213D] py-12 text-white">
       <div className="mx-auto grid max-w-[1232px] gap-6 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
         {highlights.map((item) => (
-          <div key={item.label} className="rounded-xl border border-white/10 bg-white/5 p-6">
+          <div key={tr(locale, item.label)} className="rounded-xl border border-white/10 bg-white/5 p-6">
             <p className="text-3xl font-semibold text-[#75D09B]">{item.value}</p>
-            <p className="mt-2 text-sm leading-6 text-[#C8D4E6]">{item.label}</p>
+            <p className="mt-2 text-sm leading-6 text-[#C8D4E6]">{tr(locale, item.label)}</p>
           </div>
         ))}
       </div>
@@ -176,14 +191,14 @@ function Stats() {
   );
 }
 
-function VisionMission() {
+function VisionMission({ locale }: { locale: Locale }) {
   return (
     <section className="bg-[#F5F7FC] py-20">
       <div className="mx-auto grid max-w-[1232px] gap-6 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
         <article className="rounded-2xl border border-[#D8E5F6] bg-white p-8">
-          <p className="text-sm font-semibold text-[#147C4C]">Visi Kami</p>
+          <p className="text-sm font-semibold text-[#147C4C]">{tr(locale, "Visi Kami")}</p>
           <h2 className="mt-4 text-3xl font-semibold text-[#132033]">
-            Menjadi platform rental kendaraan yang praktis, aman, dan mudah dipercaya.
+            {tr(locale, "Menjadi platform rental kendaraan yang praktis, aman, dan mudah dipercaya.")}
           </h2>
           <p className="mt-5 leading-8 text-[#526176]">
             RentGo ingin membantu pelanggan menemukan kendaraan yang sesuai dengan
@@ -193,9 +208,9 @@ function VisionMission() {
         </article>
 
         <article className="rounded-2xl border border-[#D8E5F6] bg-white p-8">
-          <p className="text-sm font-semibold text-[#147C4C]">Misi Kami</p>
+          <p className="text-sm font-semibold text-[#147C4C]">{tr(locale, "Misi Kami")}</p>
           <h2 className="mt-4 text-3xl font-semibold text-[#132033]">
-            Membuat proses sewa lebih cepat dari pencarian sampai serah terima.
+            {tr(locale, "Membuat proses sewa lebih cepat dari pencarian sampai serah terima.")}
           </h2>
           <p className="mt-5 leading-8 text-[#526176]">
             Kami merancang alur yang mencakup pencarian armada, perhitungan biaya,
@@ -208,26 +223,26 @@ function VisionMission() {
   );
 }
 
-function Values() {
+function Values({ locale }: { locale: Locale }) {
   const icons = ["search", "wallet", "chart"];
 
   return (
     <section className="bg-white py-20">
       <div className="mx-auto max-w-[1232px] px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl">
-          <p className="text-sm font-semibold text-[#147C4C]">Kenapa RentGo</p>
+          <p className="text-sm font-semibold text-[#147C4C]">{tr(locale, "Kenapa RentGo")}</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#132033] sm:text-4xl">
-            Satu platform untuk perjalanan dan pengelolaan rental.
+            {tr(locale, "Satu platform untuk perjalanan dan pengelolaan rental.")}
           </h2>
         </div>
         <div className="mt-10 grid gap-6 md:grid-cols-3">
           {values.map((value, index) => (
-            <article key={value.title} className="rounded-2xl border border-[#D8E5F6] bg-[#F7FAFD] p-6">
+            <article key={tr(locale, value.title)} className="rounded-2xl border border-[#D8E5F6] bg-[#F7FAFD] p-6">
               <div className="grid h-12 w-12 place-items-center rounded-lg bg-white text-[#0E3FA8] shadow-sm">
                 <Icon name={icons[index]} className="h-6 w-6" />
               </div>
-              <h3 className="mt-6 text-xl font-semibold text-[#132033]">{value.title}</h3>
-              <p className="mt-3 text-sm leading-7 text-[#526176]">{value.desc}</p>
+              <h3 className="mt-6 text-xl font-semibold text-[#132033]">{tr(locale, value.title)}</h3>
+              <p className="mt-3 text-sm leading-7 text-[#526176]">{tr(locale, value.desc)}</p>
             </article>
           ))}
         </div>
@@ -236,14 +251,14 @@ function Values() {
   );
 }
 
-function Trust() {
+function Trust({ locale }: { locale: Locale }) {
   return (
     <section className="bg-[#F5F7FC] py-20">
       <div className="mx-auto grid max-w-[1232px] gap-10 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
         <div>
-          <p className="text-sm font-semibold text-[#147C4C]">Komitmen Layanan</p>
+          <p className="text-sm font-semibold text-[#147C4C]">{tr(locale, "Komitmen Layanan")}</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#132033] sm:text-4xl">
-            Kepercayaan dibangun dari aturan yang jelas.
+            {tr(locale, "Kepercayaan dibangun dari aturan yang jelas.")}
           </h2>
           <p className="mt-5 leading-8 text-[#526176]">
             Setiap alur RentGo dirancang agar pelanggan mengetahui status pesanan
@@ -267,20 +282,20 @@ function Trust() {
   );
 }
 
-function Cta() {
+function Cta({ locale }: { locale: Locale }) {
   return (
     <section className="bg-white py-16">
       <div className="mx-auto max-w-[1232px] px-4 sm:px-6 lg:px-8">
         <div className="rounded-2xl bg-[#0E3FA8] p-8 text-white md:flex md:items-center md:justify-between md:gap-8">
           <div>
-            <h2 className="text-2xl font-semibold">Siap mulai perjalanan dengan RentGo?</h2>
+            <h2 className="text-2xl font-semibold">{tr(locale, "Siap mulai perjalanan dengan RentGo?")}</h2>
             <p className="mt-3 max-w-2xl text-sm leading-7 text-blue-100">
               Pilih kendaraan, lengkapi data, dan buat pesanan dengan proses yang
               lebih terstruktur.
             </p>
           </div>
           <Link href="/kendaraan" className="mt-6 inline-flex items-center gap-2 rounded-lg bg-white px-5 py-3 text-sm font-semibold text-[#0E3FA8] md:mt-0">
-            Lihat daftar kendaraan
+            {tr(locale, "Lihat daftar kendaraan")}
             <Icon name="arrow" className="h-4 w-4" />
           </Link>
         </div>
@@ -289,17 +304,18 @@ function Cta() {
   );
 }
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const locale = await getLocale();
   return (
     <main>
       <SiteHeader activePage="tentang" />
-      <Hero />
-      <Story />
-      <Stats />
-      <VisionMission />
-      <Values />
-      <Trust />
-      <Cta />
+      <Hero locale={locale} />
+      <Story locale={locale} />
+      <Stats locale={locale} />
+      <VisionMission locale={locale} />
+      <Values locale={locale} />
+      <Trust locale={locale} />
+      <Cta locale={locale} />
       <SiteFooter />
     </main>
   );

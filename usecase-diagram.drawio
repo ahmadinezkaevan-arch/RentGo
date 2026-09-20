@@ -1,0 +1,319 @@
+<mxfile host="app.diagrams.net" modified="2026-09-19T07:55:00.000Z" agent="Antigravity" version="21.0.0" type="device">
+  <diagram id="RentGo-UseCase" name="RentGo Use Case Diagram">
+    <mxGraphModel dx="1600" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1300" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- SYSTEM BOUNDARY -->
+        <mxCell id="boundary" value="SISTEM INFORMASI RENTAL KENDARAAN (RENTGO)" style="shape=swimlane;startSize=40;fontStyle=1;fontSize=16;align=center;horizontal=1;swimlaneFillColor=#f8fafc;fillColor=#1e293b;strokeColor=#334155;strokeWidth=2;fontColor=#ffffff;rounded=1;arcSize=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="40" width="1120" height="1200" as="geometry" />
+        </mxCell>
+
+        <!-- SUB-GROUP LABELS (VISUAL HEADERS INSIDE BOUNDARY) -->
+        <mxCell id="grp_cat1" value="Katalog &amp; Otentikasi Pengguna" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=13;fontColor=#475569;" vertex="1" parent="boundary">
+          <mxGeometry x="30" y="55" width="250" height="25" as="geometry" />
+        </mxCell>
+
+        <mxCell id="grp_cat2" value="Verifikasi Dokumen Identitas" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=13;fontColor=#475569;" vertex="1" parent="boundary">
+          <mxGeometry x="30" y="385" width="250" height="25" as="geometry" />
+        </mxCell>
+
+        <mxCell id="grp_cat3" value="Pemesanan &amp; Penjadwalan Kendaraan" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=13;fontColor=#475569;" vertex="1" parent="boundary">
+          <mxGeometry x="30" y="515" width="280" height="25" as="geometry" />
+        </mxCell>
+
+        <mxCell id="grp_cat4" value="Pembayaran &amp; Transaksi Finansial" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=13;fontColor=#475569;" vertex="1" parent="boundary">
+          <mxGeometry x="30" y="755" width="270" height="25" as="geometry" />
+        </mxCell>
+
+        <mxCell id="grp_cat5" value="Manajemen Master Data Rental" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=13;fontColor=#475569;" vertex="1" parent="boundary">
+          <mxGeometry x="610" y="55" width="250" height="25" as="geometry" />
+        </mxCell>
+
+        <mxCell id="grp_cat6" value="Operasional Rental &amp; Pelaporan" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=13;fontColor=#475569;" vertex="1" parent="boundary">
+          <mxGeometry x="610" y="925" width="250" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- USE CASES: KATALOG & AUTENTIKASI -->
+        <mxCell id="uc_register" value="Registrasi Akun" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9333ea;strokeWidth=1.5;fontSize=12;fontColor=#1e293b;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="320" y="125" width="170" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_login" value="Login &amp; Logout Akun" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;fontColor=#1e293b;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="320" y="195" width="170" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_browse" value="Lihat Katalog &amp; Cari Kendaraan" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;fontColor=#1e293b;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="320" y="265" width="185" height="55" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_detail" value="Lihat Detail Kendaraan" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#475569;strokeWidth=1.5;dashed=1;fontSize=12;fontColor=#1e293b;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="580" y="265" width="170" height="55" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_profile" value="Kelola Profil Akun" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;fontColor=#1e293b;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="320" y="340" width="170" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- USE CASES: DOKUMEN IDENTITAS -->
+        <mxCell id="uc_upload_doc" value="Unggah Dokumen Identitas&#xa;(KTP &amp; SIM)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;fontColor=#1e293b;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="320" y="450" width="185" height="55" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_verify_doc" value="Verifikasi Dokumen Identitas&#xa;(Terima / Tolak KTP &amp; SIM)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.5;fontSize=12;fontColor=#1e293b;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="610" y="450" width="190" height="55" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_reject_doc" value="Input Catatan Alasan&#xa;Penolakan Dokumen" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fef2f2;strokeColor=#dc2626;strokeWidth=1.5;dashed=1;fontSize=11;fontColor=#1e293b;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="890" y="450" width="170" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- USE CASES: PEMESANAN & JADWAL -->
+        <mxCell id="uc_booking" value="Melakukan Pemesanan&#xa;(Booking Kendaraan)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=2;fontSize=12;fontColor=#1e293b;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="580" width="185" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_check_avail" value="Cek Ketersediaan Jadwal&#xa;&amp; Anti Double-Booking" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#475569;strokeWidth=1.5;dashed=1;fontSize=11;fontColor=#1e293b;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="580" y="550" width="185" height="55" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_calc_cost" value="Hitung Total Biaya &amp;&#xa;Diskon Durasi Sewa" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#475569;strokeWidth=1.5;dashed=1;fontSize=11;fontColor=#1e293b;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="580" y="625" width="185" height="55" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_confirm_booking" value="Konfirmasi Pemesanan&#xa;&amp; Status Booking" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.5;fontSize=12;fontColor=#1e293b;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="880" y="580" width="180" height="55" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_history" value="Melihat Riwayat &amp;&#xa;Status Pemesanan" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;fontColor=#1e293b;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="320" y="665" width="180" height="55" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_cancel_booking" value="Batalkan Pemesanan" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff1f2;strokeColor=#e11d48;strokeWidth=1.5;fontSize=12;fontColor=#1e293b;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="600" y="700" width="170" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- USE CASES: PEMBAYARAN & TRANSAKSI -->
+        <mxCell id="uc_pay_dp" value="Bayar DP (50%) &amp;&#xa;Unggah Bukti Transfer" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;fontColor=#1e293b;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="320" y="810" width="190" height="55" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_pay_remainder" value="Pelunasan Sisa Bayar (50%)&#xa;(Maksimal H-24 Jam)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=1.5;fontSize=12;fontColor=#1e293b;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="320" y="885" width="195" height="55" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_verify_payment" value="Verifikasi Pembayaran&#xa;(DP &amp; Pelunasan)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.5;fontSize=12;fontColor=#1e293b;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="610" y="845" width="190" height="55" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_refund" value="Proses Refund Dana&#xa;(Sesuai Aturan Waktu)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fef2f2;strokeColor=#dc2626;strokeWidth=1.5;dashed=1;fontSize=11;fontColor=#1e293b;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="890" y="700" width="170" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- USE CASES: MASTER DATA (ADMIN) -->
+        <mxCell id="uc_manage_vehicles" value="Kelola Data Kendaraan&#xa;(Tambah, Ubah, Hapus)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.5;fontSize=12;fontColor=#1e293b;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="880" y="115" width="180" height="55" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_manage_categories" value="Kelola Kategori Kendaraan&#xa;(Mobil, Motor, dll)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.5;fontSize=12;fontColor=#1e293b;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="880" y="190" width="180" height="55" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_manage_customers" value="Kelola Data Pelanggan&#xa;&amp; Riwayat Rental" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.5;fontSize=12;fontColor=#1e293b;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="880" y="265" width="180" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- USE CASES: OPERASIONAL & LAPORAN (ADMIN) -->
+        <mxCell id="uc_handover_return" value="Kelola Serah Terima &amp;&#xa;Pengembalian Unit Kendaraan" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.5;fontSize=12;fontColor=#1e293b;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="880" y="980" width="195" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_report" value="Melihat &amp; Mencetak&#xa;Laporan Transaksi" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.5;fontSize=12;fontColor=#1e293b;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="880" y="1070" width="180" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- ACTORS -->
+        <mxCell id="actor_guest" value="Guest&#xa;(Pengunjung)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#f3e8ff;strokeColor=#9333ea;strokeWidth=2;fontStyle=1;fontSize=13;fontColor=#4c1d95;" vertex="1" parent="1">
+          <mxGeometry x="70" y="200" width="60" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="actor_customer" value="Pelanggan&#xa;(Customer)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#dbeafe;strokeColor=#2563eb;strokeWidth=2;fontStyle=1;fontSize=13;fontColor=#1e3a8a;" vertex="1" parent="1">
+          <mxGeometry x="70" y="650" width="60" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="actor_admin" value="Admin Rental&#xa;(Pengelola)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#ffedd5;strokeColor=#ea580c;strokeWidth=2;fontStyle=1;fontSize=13;fontColor=#7c2d12;" vertex="1" parent="1">
+          <mxGeometry x="1480" y="550" width="60" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- ASSOCIATIONS: GUEST -->
+        <mxCell id="edge_g_reg" style="endArrow=none;html=1;rounded=0;strokeColor=#9333ea;strokeWidth=1.5;" edge="1" parent="1" source="actor_guest" target="uc_register">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_g_log" style="endArrow=none;html=1;rounded=0;strokeColor=#9333ea;strokeWidth=1.5;" edge="1" parent="1" source="actor_guest" target="uc_login">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_g_brw" style="endArrow=none;html=1;rounded=0;strokeColor=#9333ea;strokeWidth=1.5;" edge="1" parent="1" source="actor_guest" target="uc_browse">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ASSOCIATIONS: PELANGGAN -->
+        <mxCell id="edge_c_log" style="endArrow=none;html=1;rounded=0;strokeColor=#2563eb;strokeWidth=1.5;" edge="1" parent="1" source="actor_customer" target="uc_login">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="200" y="240" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_c_brw" style="endArrow=none;html=1;rounded=0;strokeColor=#2563eb;strokeWidth=1.5;" edge="1" parent="1" source="actor_customer" target="uc_browse">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="220" y="300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_c_prf" style="endArrow=none;html=1;rounded=0;strokeColor=#2563eb;strokeWidth=1.5;" edge="1" parent="1" source="actor_customer" target="uc_profile">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_c_doc" style="endArrow=none;html=1;rounded=0;strokeColor=#2563eb;strokeWidth=1.5;" edge="1" parent="1" source="actor_customer" target="uc_upload_doc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_c_bkg" style="endArrow=none;html=1;rounded=0;strokeColor=#2563eb;strokeWidth=2;" edge="1" parent="1" source="actor_customer" target="uc_booking">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_c_hst" style="endArrow=none;html=1;rounded=0;strokeColor=#2563eb;strokeWidth=1.5;" edge="1" parent="1" source="actor_customer" target="uc_history">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_c_can" style="endArrow=none;html=1;rounded=0;strokeColor=#2563eb;strokeWidth=1.5;" edge="1" parent="1" source="actor_customer" target="uc_cancel_booking">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="230" y="730" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_c_dp" style="endArrow=none;html=1;rounded=0;strokeColor=#2563eb;strokeWidth=1.5;" edge="1" parent="1" source="actor_customer" target="uc_pay_dp">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_c_rem" style="endArrow=none;html=1;rounded=0;strokeColor=#2563eb;strokeWidth=1.5;" edge="1" parent="1" source="actor_customer" target="uc_pay_remainder">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ASSOCIATIONS: ADMIN -->
+        <mxCell id="edge_a_log" style="endArrow=none;html=1;rounded=0;strokeColor=#ea580c;strokeWidth=1.5;" edge="1" parent="1" source="actor_admin" target="uc_login">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1440" y="80" />
+              <mxPoint x="530" y="80" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_a_veh" style="endArrow=none;html=1;rounded=0;strokeColor=#ea580c;strokeWidth=1.5;" edge="1" parent="1" source="actor_admin" target="uc_manage_vehicles">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1430" y="140" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_a_cat" style="endArrow=none;html=1;rounded=0;strokeColor=#ea580c;strokeWidth=1.5;" edge="1" parent="1" source="actor_admin" target="uc_manage_categories">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1430" y="215" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_a_cus" style="endArrow=none;html=1;rounded=0;strokeColor=#ea580c;strokeWidth=1.5;" edge="1" parent="1" source="actor_admin" target="uc_manage_customers">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1430" y="290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_a_doc" style="endArrow=none;html=1;rounded=0;strokeColor=#ea580c;strokeWidth=1.5;" edge="1" parent="1" source="actor_admin" target="uc_verify_doc">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1430" y="420" />
+              <mxPoint x="830" y="420" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_a_bkg" style="endArrow=none;html=1;rounded=0;strokeColor=#ea580c;strokeWidth=1.5;" edge="1" parent="1" source="actor_admin" target="uc_confirm_booking">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_a_can" style="endArrow=none;html=1;rounded=0;strokeColor=#ea580c;strokeWidth=1.5;" edge="1" parent="1" source="actor_admin" target="uc_cancel_booking">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1420" y="670" />
+              <mxPoint x="840" y="670" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_a_pay" style="endArrow=none;html=1;rounded=0;strokeColor=#ea580c;strokeWidth=1.5;" edge="1" parent="1" source="actor_admin" target="uc_verify_payment">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1430" y="872" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_a_hnd" style="endArrow=none;html=1;rounded=0;strokeColor=#ea580c;strokeWidth=1.5;" edge="1" parent="1" source="actor_admin" target="uc_handover_return">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1430" y="1010" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_a_rpt" style="endArrow=none;html=1;rounded=0;strokeColor=#ea580c;strokeWidth=1.5;" edge="1" parent="1" source="actor_admin" target="uc_report">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1430" y="1097" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- RELATIONSHIPS: INCLUDE & EXTEND -->
+        <mxCell id="edge_inc_browse_detail" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="html=1;verticalAlign=bottom;labelBackgroundColor=#ffffff;endArrow=open;endSize=8;dashed=1;rounded=0;strokeColor=#475569;strokeWidth=1.5;fontSize=11;" edge="1" parent="1" source="uc_detail" target="uc_browse">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge_inc_check_avail" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="html=1;verticalAlign=bottom;labelBackgroundColor=#ffffff;endArrow=open;endSize=8;dashed=1;rounded=0;strokeColor=#475569;strokeWidth=1.5;fontSize=11;" edge="1" parent="1" source="uc_booking" target="uc_check_avail">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge_inc_calc_cost" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="html=1;verticalAlign=bottom;labelBackgroundColor=#ffffff;endArrow=open;endSize=8;dashed=1;rounded=0;strokeColor=#475569;strokeWidth=1.5;fontSize=11;" edge="1" parent="1" source="uc_booking" target="uc_calc_cost">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge_ext_reject_doc" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="html=1;verticalAlign=bottom;labelBackgroundColor=#ffffff;endArrow=open;endSize=8;dashed=1;rounded=0;strokeColor=#dc2626;strokeWidth=1.5;fontSize=11;" edge="1" parent="1" source="uc_reject_doc" target="uc_verify_doc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge_ext_refund" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="html=1;verticalAlign=bottom;labelBackgroundColor=#ffffff;endArrow=open;endSize=8;dashed=1;rounded=0;strokeColor=#dc2626;strokeWidth=1.5;fontSize=11;" edge="1" parent="1" source="uc_refund" target="uc_cancel_booking">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- LEGEND BOX -->
+        <mxCell id="legend_box" value="LEGENDA DIAGRAM" style="swimlane;startSize=25;fontStyle=1;fontSize=12;align=center;horizontal=1;swimlaneFillColor=#ffffff;fillColor=#475569;strokeColor=#94a3b8;fontColor=#ffffff;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="980" width="190" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="leg_guest" value="Guest" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f3e8ff;strokeColor=#9333ea;fontSize=11;fontStyle=1;fontColor=#4c1d95;" vertex="1" parent="legend_box">
+          <mxGeometry x="15" y="35" width="160" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="leg_customer" value="Pelanggan (Customer)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#2563eb;fontSize=11;fontStyle=1;fontColor=#1e3a8a;" vertex="1" parent="legend_box">
+          <mxGeometry x="15" y="68" width="160" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="leg_admin" value="Admin Rental" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffedd5;strokeColor=#ea580c;fontSize=11;fontStyle=1;fontColor=#7c2d12;" vertex="1" parent="legend_box">
+          <mxGeometry x="15" y="101" width="160" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="leg_include" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt; Relasi Wajib" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=10;fontColor=#334155;" vertex="1" parent="legend_box">
+          <mxGeometry x="15" y="135" width="160" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="leg_extend" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt; Kondisional" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=10;fontColor=#334155;" vertex="1" parent="legend_box">
+          <mxGeometry x="15" y="160" width="160" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="leg_note" value="Sesuai PRD RentGo v1.0" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=9;fontStyle=2;fontColor=#64748b;" vertex="1" parent="legend_box">
+          <mxGeometry x="10" y="190" width="170" height="25" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

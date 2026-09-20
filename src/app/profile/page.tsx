@@ -1,8 +1,11 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { getCurrentUser } from "@/lib/auth";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { getLocale, pick } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: "Profil Saya - RentGo",
@@ -112,7 +115,7 @@ function TextField({ label, value, icon }: { label: string; value: string; icon:
   );
 }
 
-function DocumentCard({ title, file, status }: { title: string; file: string; status: string }) {
+function DocumentCard({ title, file, status, changeLabel }: { title: string; file: string; status: string; changeLabel: string }) {
   return (
     <article className="rounded-xl border border-[#D5DDEA] bg-[#F8FAFE] p-4">
       <div className="flex items-start justify-between gap-4">
@@ -127,21 +130,24 @@ function DocumentCard({ title, file, status }: { title: string; file: string; st
       <h3 className="mt-4 text-base font-semibold text-[#132033]">{title}</h3>
       <p className="mt-1 text-sm text-[#667085]">{file}</p>
       <button type="button" className="mt-4 rounded-lg border border-[#0E3FA8] px-4 py-2 text-sm font-semibold text-[#0E3FA8]">
-        Ganti Dokumen
+        {changeLabel}
       </button>
     </article>
   );
 }
 
-export default function ProfilePage() {
+export default async function ProfilePage() {
+  const [user, locale] = await Promise.all([getCurrentUser(), getLocale()]);
+  if (!user) redirect("/login");
+  const t = (id: string, en: string) => pick(locale, { id, en });
   const bookings = [
-    { vehicle: "Toyota Avanza 2023", date: "24 Okt - 27 Okt", status: "Menunggu pembayaran", color: "bg-[#FFF3D6] text-[#9A6700]" },
-    { vehicle: "Honda Brio 2022", date: "12 Sep - 14 Sep", status: "Selesai", color: "bg-[#DDF8E7] text-[#147C4C]" },
+    { vehicle: "Toyota Avanza 2023", date: t("24 Okt - 27 Okt", "24 Oct - 27 Oct"), status: t("Menunggu pembayaran", "Awaiting payment"), color: "bg-[#FFF3D6] text-[#9A6700]" },
+    { vehicle: "Honda Brio 2022", date: t("12 Sep - 14 Sep", "12 Sep - 14 Sep"), status: t("Selesai", "Completed"), color: "bg-[#DDF8E7] text-[#147C4C]" },
   ];
 
   return (
     <main className="bg-[#F5F7FC]">
-      <SiteHeader isAuthenticated />
+      <SiteHeader />
 
       <section className="mx-auto max-w-[1232px] px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
         <div className="grid gap-8 lg:grid-cols-[20rem_minmax(0,1fr)]">
@@ -152,7 +158,7 @@ export default function ProfilePage() {
                 <div className="relative mx-auto -mt-14 h-28 w-28 rounded-full border-4 border-white bg-[#DCEBFF]">
                   <Image
                     src="/rentgo-hero.png"
-                    alt="Foto profil Ahmadinezka Evan"
+                    alt="Foto profil pengguna RentGo"
                     fill
                     sizes="7rem"
                     className="rounded-full object-cover"
@@ -162,21 +168,21 @@ export default function ProfilePage() {
                     <Icon name="camera" className="h-4 w-4" />
                   </button>
                 </div>
-                <h1 className="mt-4 text-2xl font-semibold leading-tight text-[#132033]">Ahmadinezka Evan</h1>
-                <p className="mt-1 text-sm font-semibold text-[#667085]">Pelanggan RentGo</p>
+                <h1 className="mt-4 text-2xl font-semibold leading-tight text-[#132033]">{user.name}</h1>
+                <p className="mt-1 text-sm font-semibold text-[#667085]">{user.role === "ADMIN" ? "Admin RentGo" : t("Pelanggan RentGo", "RentGo Customer")}</p>
                 <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#DDF8E7] px-4 py-2 text-sm font-semibold text-[#147C4C]">
                   <Icon name="shield" className="h-4 w-4" />
-                  Dokumen terverifikasi
+                  {t("Akun aktif", "Active account")}
                 </span>
               </div>
             </section>
 
             <nav className="mt-5 rounded-xl border border-[#D5DDEA] bg-white p-3 shadow-sm" aria-label="Menu profil">
               {[
-                ["Profil Saya", "user", true],
-                ["Riwayat Booking", "car", false],
-                ["Dokumen", "document", false],
-                ["Logout", "shield", false],
+                [t("Profil Saya", "My Profile"), "user", true],
+                [t("Riwayat Booking", "Booking History"), "car", false],
+                [t("Dokumen", "Documents"), "document", false],
+                [t("Keluar", "Logout"), "shield", false],
               ].map(([label, icon, active]) => (
                 <Link
                   key={String(label)}
@@ -196,22 +202,22 @@ export default function ProfilePage() {
             <section className="rounded-xl border border-[#D5DDEA] bg-white p-5 shadow-sm sm:p-6">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
-                  <h2 className="text-3xl font-semibold leading-tight text-[#101B2D]">Profil Saya</h2>
+                  <h2 className="text-3xl font-semibold leading-tight text-[#101B2D]">{t("Profil Saya", "My Profile")}</h2>
                   <p className="mt-2 max-w-2xl text-base leading-7 text-[#667085]">
-                    Kelola informasi akun, dokumen identitas, dan status penyewaan kendaraan Anda.
+                    {t("Kelola informasi akun, dokumen identitas, dan status penyewaan kendaraan Anda.", "Manage your account information, identity documents, and rental status.")}
                   </p>
                 </div>
                 <button type="button" className="inline-flex items-center gap-2 rounded-lg bg-[#0E3FA8] px-5 py-3 text-sm font-semibold text-white">
                   <Icon name="edit" className="h-5 w-5" />
-                  Edit Profil
+                  {t("Edit Profil", "Edit Profile")}
                 </button>
               </div>
 
               <div className="mt-6 grid gap-4 sm:grid-cols-3">
                 {[
-                  ["Total Booking", "8", "car"],
-                  ["Booking Aktif", "1", "clock"],
-                  ["Terverifikasi", "100%", "shield"],
+                  [t("Total Booking", "Total Bookings"), "8", "car"],
+                  [t("Booking Aktif", "Active Bookings"), "1", "clock"],
+                  [t("Terverifikasi", "Verified"), "100%", "shield"],
                 ].map(([label, value, icon]) => (
                   <article key={label} className="rounded-lg border border-[#D5DDEA] bg-[#F8FAFE] p-4">
                     <Icon name={icon as IconName} className="h-6 w-6 text-[#0E3FA8]" />
@@ -223,20 +229,20 @@ export default function ProfilePage() {
             </section>
 
             <section className="rounded-xl border border-[#D5DDEA] bg-white p-5 shadow-sm sm:p-6">
-              <h2 className="text-xl font-semibold text-[#132033]">Informasi Pribadi</h2>
+              <h2 className="text-xl font-semibold text-[#132033]">{t("Informasi Pribadi", "Personal Information")}</h2>
               <div className="mt-5 grid gap-4 md:grid-cols-2">
-                <TextField label="Nama Lengkap" value="Ahmadinezka Evan Juanurifiki" icon="user" />
-                <TextField label="Nomor Telepon" value="0812-3456-7890" icon="phone" />
-                <TextField label="Email" value="evan@rentgo.co.id" icon="mail" />
-                <TextField label="Tanggal Bergabung" value="13 September 2026" icon="calendar" />
+                <TextField label={t("Nama Lengkap", "Full Name")} value={user.name} icon="user" />
+                <TextField label={t("Nomor Telepon", "Phone Number")} value={user.phone ?? t("Belum diisi", "Not provided")} icon="phone" />
+                <TextField label="Email" value={user.email} icon="mail" />
+                <TextField label={t("Tanggal Bergabung", "Member Since")} value={t("13 September 2026", "13 September 2026")} icon="calendar" />
               </div>
             </section>
 
             <section className="rounded-xl border border-[#D5DDEA] bg-white p-5 shadow-sm sm:p-6">
               <div className="flex flex-wrap items-center justify-between gap-4">
-                <h2 className="text-xl font-semibold text-[#132033]">Riwayat Booking</h2>
+                <h2 className="text-xl font-semibold text-[#132033]">{t("Riwayat Booking", "Booking History")}</h2>
                 <Link href="/kendaraan" className="text-sm font-semibold text-[#0E3FA8]">
-                  Sewa kendaraan lagi
+                  {t("Sewa kendaraan lagi", "Rent another vehicle")}
                 </Link>
               </div>
               <div className="mt-5 space-y-3">
@@ -258,11 +264,11 @@ export default function ProfilePage() {
             </section>
 
             <section className="rounded-xl border border-[#D5DDEA] bg-white p-5 shadow-sm sm:p-6">
-              <h2 className="text-xl font-semibold text-[#132033]">Dokumen Identitas</h2>
-              <p className="mt-2 text-base text-[#667085]">Dokumen ini digunakan untuk validasi penyewaan kendaraan.</p>
+              <h2 className="text-xl font-semibold text-[#132033]">{t("Dokumen Identitas", "Identity Documents")}</h2>
+              <p className="mt-2 text-base text-[#667085]">{t("Dokumen ini digunakan untuk validasi penyewaan kendaraan.", "These documents are used to validate vehicle rentals.")}</p>
               <div className="mt-5 grid gap-4 md:grid-cols-2">
-                <DocumentCard title="KTP" file="ktp-ahmadinezka.jpg" status="Terverifikasi" />
-                <DocumentCard title="SIM A" file="sim-a-ahmadinezka.jpg" status="Terverifikasi" />
+                <DocumentCard title={t("KTP", "National ID")} file="ktp-ahmadinezka.jpg" status={t("Terverifikasi", "Verified")} changeLabel={t("Ganti Dokumen", "Replace Document")} />
+                <DocumentCard title={t("SIM A", "Driving License")} file="sim-a-ahmadinezka.jpg" status={t("Terverifikasi", "Verified")} changeLabel={t("Ganti Dokumen", "Replace Document")} />
               </div>
             </section>
           </div>

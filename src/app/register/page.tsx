@@ -1,192 +1,31 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { register } from "@/app/auth/actions";
+import { getLocale, pick } from "@/lib/i18n";
 
-export const metadata: Metadata = {
-  title: "Register - RentGo",
-  description:
-    "Buat akun RentGo dan unggah dokumen KTP serta SIM sebagai persyaratan penyewaan kendaraan.",
-};
+export const metadata: Metadata = { title: "Register - RentGo" };
 
-function Icon({ name, className }: { name: string; className?: string }) {
-  const paths: Record<string, React.ReactNode> = {
-    user: (
-      <>
-        <circle cx="12" cy="8" r="4" />
-        <path d="M5 21a7 7 0 0 1 14 0" />
-      </>
-    ),
-    mail: (
-      <>
-        <rect x="3" y="5" width="18" height="14" rx="2" />
-        <path d="m3 7 9 6 9-6" />
-      </>
-    ),
-    phone: <path d="M5 4h4l2 5-2 1.5a12 12 0 0 0 5 5L15.5 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" />,
-    lock: (
-      <>
-        <rect x="5" y="11" width="14" height="9" rx="2" />
-        <path d="M8 11V8a4 4 0 0 1 8 0v3" />
-      </>
-    ),
-    upload: (
-      <>
-        <path d="M12 16V4" />
-        <path d="m7 9 5-5 5 5" />
-        <path d="M5 20h14" />
-      </>
-    ),
-    shield: (
-      <>
-        <path d="M12 3 5 6v5c0 4 2.8 7.5 7 9 4.2-1.5 7-5 7-9V6l-7-3Z" />
-        <path d="m9 12 2 2 4-4" />
-      </>
-    ),
-    check: <path d="m5 12.5 4.5 4.5L19 7.5" />,
-  };
-
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="1.8"
-      className={className}
-      aria-hidden="true"
-    >
-      {paths[name]}
-    </svg>
-  );
+function Icon({ name, className }: { name: "user" | "mail" | "phone" | "lock" | "check"; className?: string }) {
+  const paths = { user: <><circle cx="12" cy="8" r="4" /><path d="M5 21a7 7 0 0 1 14 0" /></>, mail: <><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></>, phone: <path d="M5 4h4l2 5-2 1.5a12 12 0 0 0 5 5L15.5 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" />, lock: <><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></>, check: <path d="m5 12.5 4.5 4.5L19 7.5" /> };
+  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" className={className} aria-hidden="true">{paths[name]}</svg>;
 }
 
-function TextField({
-  label,
-  placeholder,
-  type = "text",
-  icon,
-}: {
-  label: string;
-  placeholder: string;
-  type?: string;
-  icon: string;
-}) {
-  return (
-    <label className="block">
-      <span className="text-sm font-semibold text-[#344054]">{label}</span>
-      <span className="mt-1.5 flex items-center gap-2.5 rounded-lg border border-[#C8D0DD] bg-white px-3 py-2 focus-within:border-[#0E3FA8]">
-        <Icon name={icon} className="h-4 w-4 shrink-0 text-[#667085]" />
-        <input
-          type={type}
-          placeholder={placeholder}
-          className="w-full bg-transparent text-sm outline-none placeholder:text-[#98A2B3]"
-        />
-      </span>
-    </label>
-  );
+function Field({ label, name, type = "text", icon, autoComplete }: { label: string; name: string; type?: string; icon: "user" | "mail" | "phone" | "lock"; autoComplete: string }) {
+  return <label className="block"><span className="text-sm font-semibold text-[#344054]">{label}</span><span className="mt-2 flex h-12 items-center gap-3 rounded-xl border border-[#C8D0DD] bg-[#FBFCFE] px-3.5 transition-colors focus-within:border-[#0E3FA8] focus-within:bg-white"><Icon name={icon} className="h-4.5 w-4.5 shrink-0 text-[#667085]" /><input name={name} type={type} autoComplete={autoComplete} required={name !== "phone"} className="w-full bg-transparent text-sm outline-none placeholder:text-[#98A2B3]" /></span></label>;
 }
 
-function DocumentUpload({ label, helper }: { label: string; helper: string }) {
-  return (
-    <label className="block rounded-xl border border-dashed border-[#AFC0D8] bg-[#F7FAFD] p-3">
-      <span className="flex items-start gap-2.5">
-        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-white text-[#0E3FA8] shadow-sm">
-          <Icon name="upload" className="h-4 w-4" />
-        </span>
-        <span className="min-w-0">
-          <span className="block text-sm font-semibold text-[#132033]">{label}</span>
-          <span className="mt-0.5 block text-[11px] leading-4 text-[#667085]">{helper}</span>
-        </span>
-      </span>
-      <input type="file" accept="image/*,.pdf" className="mt-3 block w-full text-xs text-[#526176] file:mr-3 file:rounded-lg file:border-0 file:bg-[#0E3FA8] file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white" />
-    </label>
-  );
+export default async function RegisterPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
+  const [{ error }, locale] = await Promise.all([searchParams, getLocale()]);
+  const t = (id: string, en: string) => pick(locale, { id, en });
+  const errors: Record<string, string> = { "invalid-data": t("Lengkapi data dengan benar, gunakan kata sandi minimal 8 karakter, dan setujui ketentuan.", "Complete the form correctly, use at least 8 password characters, and accept the terms."), "account-exists": t("Email atau nomor telepon sudah digunakan.", "The email or phone number is already in use.") };
+  const errorMessage = error ? errors[error] : undefined;
+
+  return <main className="grid h-dvh overflow-hidden bg-white lg:grid-cols-[minmax(0,1.05fr)_minmax(32rem,0.95fr)]">
+    <section className="relative flex min-h-56 overflow-hidden bg-[#10213D] px-6 py-6 sm:min-h-64 sm:px-10 lg:min-h-dvh lg:px-12 lg:py-10"><Image src="/rentgo-hero.png" alt={t("Proses serah terima kendaraan RentGo", "RentGo vehicle handover")} fill priority sizes="(min-width: 1024px) 55vw, 100vw" className="object-cover" /><div className="absolute inset-0 bg-gradient-to-br from-[#07172D]/92 via-[#0A3170]/64 to-[#10213D]/76" /><div className="relative flex w-full flex-col justify-between lg:justify-start lg:gap-24"><Link href="/" className="w-fit" aria-label={t("Beranda RentGo", "RentGo home")}><Image src="/referensi/Logo%20RentGo.svg" alt="RentGo" width={174} height={58} className="h-8 w-auto brightness-0 invert" /></Link><div className="max-w-xl pt-6 lg:pt-0"><p className="text-sm font-semibold text-[#9BD9B3]">{t("Akun untuk semua perjalanan", "One account for every journey")}</p><h1 className="mt-4 max-w-lg text-3xl font-bold leading-[1.12] tracking-tight text-white sm:text-4xl lg:text-5xl">{t("Siapkan akun sebelum booking.", "Create your account before booking.")}</h1><p className="mt-6 max-w-md text-sm leading-7 text-blue-50">{t("Simpan data akun dengan aman, lalu lanjutkan booking kapan pun Anda siap.", "Keep your account details secure, then continue booking whenever you are ready.")}</p><p className="mt-5 flex items-center gap-3 text-sm text-blue-50"><span className="grid h-6 w-6 shrink-0 place-items-center rounded-full border border-white/20 bg-white/10"><Icon name="check" className="h-3.5 w-3.5" /></span>{t("Dokumen dapat ditambahkan dari profil setelah akun dibuat.", "Documents can be added from your profile after registration.")}</p></div></div></section>
+    <section className="flex overflow-hidden bg-white px-6 py-6 sm:px-10 lg:px-14 xl:px-20"><div className="mx-auto flex w-full max-w-lg flex-col justify-center py-1 lg:py-8"><div><p className="text-sm font-semibold text-[#147C4C]">{t("Daftar RentGo", "Register for RentGo")}</p><h1 className="mt-3 text-3xl font-semibold tracking-tight text-[#132033] sm:text-4xl">{t("Buat akun pelanggan", "Create a customer account")}</h1><p className="mt-3 max-w-md text-sm leading-6 text-[#526176]">{t("Data akun disimpan aman dan kata sandi Anda tidak disimpan dalam bentuk teks biasa.", "Your account data is stored securely and your password is never stored as plain text.")}</p></div>
+      <form action={register} className="mt-5 space-y-3 sm:mt-8 sm:space-y-5">{errorMessage ? <p role="alert" className="rounded-xl border border-[#F6C5CB] bg-[#FDE5E7] px-4 py-3 text-sm font-medium text-[#B42318]">{errorMessage}</p> : null}<div className="grid grid-cols-2 gap-3 sm:gap-4"><Field label={t("Nama lengkap", "Full name")} name="name" icon="user" autoComplete="name" /><Field label={t("Nomor telepon", "Phone number")} name="phone" icon="phone" autoComplete="tel" /><Field label="Email" name="email" type="email" icon="mail" autoComplete="email" /><Field label={t("Kata sandi", "Password")} name="password" type="password" icon="lock" autoComplete="new-password" /></div><p className="text-xs leading-5 text-[#667085]">{t("Kata sandi minimal 8 karakter. Dokumen KTP dan SIM dapat Anda unggah dari halaman profil setelah masuk.", "Use at least 8 password characters. You can upload your ID and driving license from your profile after logging in.")}</p><label className="flex items-start gap-3 rounded-xl bg-[#F8FAFE] p-3.5 text-xs leading-5 text-[#526176]"><input name="terms" type="checkbox" required className="mt-0.5 h-4 w-4 rounded border-[#C8D0DD]" />{t("Saya menyatakan data yang diberikan benar serta menyetujui ketentuan RentGo.", "I confirm the information is correct and agree to RentGo terms.")}</label><button type="submit" className="flex h-13 w-full items-center justify-center rounded-xl bg-[#0E3FA8] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#0B348D] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0E3FA8]">{t("Buat akun", "Create account")}</button></form>
+      <p className="mt-4 border-t sm:mt-7 border-[#E4E9F2] pt-6 text-center text-sm text-[#526176]">{t("Sudah punya akun?", "Already have an account?")} <Link href="/login" className="font-semibold text-[#0E3FA8] hover:text-[#0B348D]">{t("Masuk", "Login")}</Link></p>
+    </div></section>
+  </main>;
 }
-
-export default function RegisterPage() {
-  return (
-    <main className="min-h-screen bg-[#F5F7FC] px-4 py-12 sm:px-6 sm:py-14 lg:px-8">
-      <section className="mx-auto grid min-h-[calc(100vh-7rem)] max-w-5xl place-items-center">
-        <div className="grid w-full overflow-hidden rounded-2xl border border-[#D8E5F6] bg-white shadow-sm lg:grid-cols-[0.9fr_1fr]">
-          <div className="relative min-h-60 bg-[#10213D] lg:min-h-[30rem]">
-            <Image
-              src="/rentgo-hero.png"
-              alt="Proses serah terima kendaraan RentGo"
-              fill
-              priority
-              sizes="(min-width: 1024px) 42vw, 100vw"
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#10213D]/90 via-[#10213D]/45 to-transparent" />
-            <Link href="/" className="absolute left-5 top-5" aria-label="RentGo beranda">
-              <Image src="/referensi/Logo%20RentGo.svg" alt="RentGo" width={174} height={58} className="h-9 w-auto brightness-0 invert" />
-            </Link>
-            <div className="absolute bottom-5 left-5 right-5 text-white sm:bottom-6 sm:left-6 sm:right-6">
-              <h1 className="max-w-sm text-2xl font-bold leading-tight sm:text-3xl">
-                Siapkan akun dan dokumen sebelum booking.
-              </h1>
-              <div className="mt-5 rounded-xl bg-white/12 p-4 backdrop-blur">
-                <p className="flex items-center gap-2.5 text-xs font-semibold leading-5 text-white">
-                  <Icon name="shield" className="h-4 w-4 text-[#75D09B]" />
-                  KTP dan SIM akan digunakan untuk proses verifikasi admin.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center p-5 sm:p-6 lg:p-8">
-            <div className="w-full">
-              <div>
-                <p className="text-sm font-semibold text-[#147C4C]">Register RentGo</p>
-                <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[#132033]">
-                  Buat akun pelanggan
-                </h2>
-                <p className="mt-2 text-sm leading-6 text-[#526176]">
-                  Lengkapi data diri dan unggah dokumen KTP serta SIM agar proses pemesanan dapat diverifikasi.
-                </p>
-              </div>
-
-              <form className="mt-5 space-y-4">
-                <div className="grid gap-3 md:grid-cols-2">
-                  <TextField label="Nama lengkap" placeholder="Nama sesuai KTP" icon="user" />
-                  <TextField label="Nomor telepon" placeholder="08xxxxxxxxxx" icon="phone" />
-                  <TextField label="Email" placeholder="nama@email.com" type="email" icon="mail" />
-                  <TextField label="Password" placeholder="Buat password" type="password" icon="lock" />
-                </div>
-
-                <div>
-                  <h3 className="text-base font-semibold text-[#132033]">Dokumen identitas</h3>
-                  <p className="mt-1 text-xs leading-5 text-[#667085]">
-                    Dokumen wajib diunggah sebelum admin mengonfirmasi pemesanan kendaraan.
-                  </p>
-                  <div className="mt-2.5 grid gap-2.5 md:grid-cols-2">
-                    <DocumentUpload label="Upload KTP" helper="Foto/scan KTP yang masih berlaku. Format JPG, PNG, atau PDF." />
-                    <DocumentUpload label="Upload SIM" helper="Foto/scan SIM aktif sesuai jenis kendaraan yang akan disewa." />
-                  </div>
-                </div>
-
-                <label className="flex items-start gap-3 text-xs leading-5 text-[#526176]">
-                  <input type="checkbox" className="mt-1 h-4 w-4 rounded border-[#C8D0DD]" />
-                  Saya menyatakan data dan dokumen yang diunggah benar serta dapat dipertanggungjawabkan.
-                </label>
-
-                <Link href="/profile" className="block w-full rounded-lg bg-[#0E3FA8] px-5 py-3 text-center text-sm font-semibold text-white">
-                  Register
-                </Link>
-              </form>
-
-              <p className="mt-5 text-center text-sm text-[#526176]">
-                Sudah punya akun?{" "}
-                <Link href="/login" className="font-semibold text-[#0E3FA8]">
-                  Login
-                </Link>
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  );
-}
-

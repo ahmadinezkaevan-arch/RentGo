@@ -1,10 +1,11 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { FAQAccordion } from "./faq-accordion";
+import { getLocale, pick } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: "FAQ & Bantuan | RentGo",
@@ -72,13 +73,28 @@ const faqs = [
   },
 ];
 
+
+const englishFaqs = [
+  { id: "pemesanan", question: "How do I book a vehicle on RentGo?", answer: "Choose a vehicle and rental dates, log in, then complete your booking details. Once your ID and driving license are verified, pay the 50% deposit so the booking can be confirmed." },
+  { id: "pembayaran", question: "How much deposit do I need to pay?", answer: "The deposit is 50% of the total rental fee. The remaining 50% must be paid no later than 24 hours before pickup. A vehicle can only be handed over after full payment." },
+  { id: "dokumen", question: "Which documents do I need?", answer: "Upload a valid ID and driving license. Our team reviews them manually, and you must bring the matching original documents at vehicle handover." },
+  { id: "kendaraan", question: "How does RentGo confirm vehicle availability?", answer: "Availability is checked against your selected dates. The system prevents overlapping active bookings for the same vehicle." },
+  { question: "Are there discounts for multi-day rentals?", answer: "Yes. Discounts start at 5% for 4-7 days, 10% for 8-10 days, 15% for 11-14 days, and 20% for rentals longer than 14 days." },
+  { question: "What are the cancellation and refund terms?", answer: "A 100% refund applies more than 7 days before rental, 90% for 3-7 days, 75% for less than 3 days, and 0% on the rental day or for a no-show." },
+  { question: "What happens if RentGo cancels my booking?", answer: "If RentGo cancels because a vehicle is damaged, unfit for use, or due to another issue on our side, every payment you have made will be refunded." },
+  { question: "What should I do when collecting the vehicle?", answer: "Make sure the booking is fully paid and bring the original ID and driving license that match your uploaded documents. Our team will check the documents and vehicle condition before handover." },
+  { question: "Is there a fee for returning a vehicle late?", answer: "Late returns may incur additional rental charges. Contact RentGo as soon as possible if your return schedule may change." },
+];
 const quickFacts = [
   { value: "50%", label: "DP untuk konfirmasi booking" },
   { value: "24 jam", label: "Batas pelunasan sebelum pengambilan" },
   { value: "100%", label: "Refund jika dibatalkan RentGo" },
 ];
 
-export default function FAQPage() {
+export default async function FAQPage() {
+  const locale = await getLocale();
+  const t = (id: string, en: string) => pick(locale, { id, en });
+  const displayedFaqs = locale === "en" ? englishFaqs : faqs;
   return <main className="min-h-screen bg-white">
     <SiteHeader activePage="faq"/>
     <section className="relative overflow-hidden border-y border-[#dce5f1] bg-[#10213d] md:aspect-[32/15]">
@@ -88,46 +104,46 @@ export default function FAQPage() {
       <div className="absolute inset-0 hidden bg-gradient-to-r from-[#07172d]/85 via-[#07172d]/35 to-transparent md:block" aria-hidden="true" />
       <div className="relative mx-auto max-w-[1232px] px-4 py-9 sm:px-6 md:flex md:h-full md:items-center md:py-0 lg:px-8">
         <div className="max-w-[720px]">
-          <h1 className="text-4xl font-bold leading-[1.12] tracking-[-0.04em] text-white sm:text-5xl">Ada yang ingin ditanyakan sebelum perjalanan?</h1>
-          <p className="mt-5 max-w-[650px] text-base leading-8 text-white/85 sm:text-lg">Temukan jawaban tentang booking, pembayaran, dokumen, serta aturan pengambilan dan pengembalian kendaraan.</p>
+          <h1 className="text-4xl font-bold leading-[1.12] tracking-[-0.04em] text-white sm:text-5xl">{t("Ada yang ingin ditanyakan sebelum perjalanan?", "Questions before your journey?")}</h1>
+          <p className="mt-5 max-w-[650px] text-base leading-8 text-white/85 sm:text-lg">{t("Temukan jawaban tentang booking, pembayaran, dokumen, serta aturan pengambilan dan pengembalian kendaraan.", "Find answers about bookings, payments, documents, pickup, and vehicle returns.")}</p>
         </div>
       </div>
     </section>
 
     <section className="mx-auto grid max-w-[1232px] gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[340px_minmax(0,1fr)] lg:gap-16 lg:px-8 lg:py-20">
       <aside className="lg:sticky lg:top-28 lg:self-start">
-        <p className="text-sm font-semibold text-[#147c4c]">Bantuan langsung</p>
-        <h2 className="mt-3 text-2xl font-bold tracking-[-0.025em] text-[#132033]">Belum menemukan jawaban?</h2>
-        <p className="mt-3 text-sm leading-7 text-[#5c6b7f]">Tim RentGo siap membantu kendala booking dan kebutuhan perjalanan Anda.</p>
+        <p className="text-sm font-semibold text-[#147c4c]">{t("Bantuan langsung", "Direct support")}</p>
+        <h2 className="mt-3 text-2xl font-bold tracking-[-0.025em] text-[#132033]">{t("Belum menemukan jawaban?", "Still need an answer?")}</h2>
+        <p className="mt-3 text-sm leading-7 text-[#5c6b7f]">{t("Tim RentGo siap membantu kendala booking dan kebutuhan perjalanan Anda.", "The RentGo team is ready to help with bookings and travel needs.")}</p>
         <div className="mt-7 overflow-hidden rounded-xl border border-[#dce5f0] bg-[#f8fafc]">
           <div className="border-b border-[#dce5f0] p-5">
             <span className="grid h-11 w-11 place-items-center rounded-lg bg-[#e3edfb] text-[#1346a0]"><Icon name="message"/></span>
-            <p className="mt-4 font-semibold text-[#132033]">Hubungi layanan pelanggan</p>
-            <p className="mt-1 text-sm leading-6 text-[#5c6b7f]">Ceritakan nomor booking dan kendala Anda agar kami dapat membantu lebih cepat.</p>
+            <p className="mt-4 font-semibold text-[#132033]">{t("Hubungi layanan pelanggan", "Contact customer service")}</p>
+            <p className="mt-1 text-sm leading-6 text-[#5c6b7f]">{t("Ceritakan nomor booking dan kendala Anda agar kami dapat membantu lebih cepat.", "Share your booking number and issue so we can help faster.")}</p>
           </div>
           <div className="space-y-3 p-5 text-sm">
             <a href="tel:08001736846" className="flex items-center gap-3 font-semibold text-[#283a52] hover:text-[#1346a0]"><Icon name="phone" className="h-4 w-4 text-[#147c4c]"/>0800-1-RENTGO</a>
-            <p className="flex items-center gap-3 text-[#5c6b7f]"><Icon name="clock" className="h-4 w-4 text-[#147c4c]"/>Setiap hari, 08.00-20.00 WIB</p>
+            <p className="flex items-center gap-3 text-[#5c6b7f]"><Icon name="clock" className="h-4 w-4 text-[#147c4c]"/>{t("Setiap hari, 08.00-20.00 WIB", "Daily, 08:00-20:00 WIB")}</p>
           </div>
         </div>
         <div className="mt-5 rounded-xl bg-[#10213d] p-5 text-white">
-          <p className="text-sm font-semibold">Sudah siap memilih kendaraan?</p>
-          <p className="mt-2 text-sm leading-6 text-[#c8d4e6]">Cek armada yang tersedia untuk jadwal perjalanan Anda.</p>
-          <Link href="/kendaraan" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-[#1346a0] hover:bg-[#eef4fc]">Lihat kendaraan <Icon name="arrow" className="h-4 w-4"/></Link>
+          <p className="text-sm font-semibold">{t("Sudah siap memilih kendaraan?", "Ready to choose a vehicle?")}</p>
+          <p className="mt-2 text-sm leading-6 text-[#c8d4e6]">{t("Cek armada yang tersedia untuk jadwal perjalanan Anda.", "Check the fleet available for your travel dates.")}</p>
+          <Link href="/kendaraan" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-[#1346a0] hover:bg-[#eef4fc]">{t("Lihat kendaraan", "View vehicles")} <Icon name="arrow" className="h-4 w-4"/></Link>
         </div>
       </aside>
 
       <div>
         <div className="flex flex-col justify-between gap-3 border-b border-[#dce5f0] pb-6 sm:flex-row sm:items-end">
-          <div><p className="text-sm font-semibold text-[#147c4c]">Jawaban cepat</p><h2 className="mt-2 text-3xl font-bold tracking-[-0.03em] text-[#132033]">Pertanyaan yang sering diajukan</h2></div>
-          <p className="text-sm text-[#657489]">{faqs.length} topik bantuan</p>
+          <div><p className="text-sm font-semibold text-[#147c4c]">{t("Jawaban cepat", "Quick answers")}</p><h2 className="mt-2 text-3xl font-bold tracking-[-0.03em] text-[#132033]">{t("Pertanyaan yang sering diajukan", "Frequently asked questions")}</h2></div>
+          <p className="text-sm text-[#657489]">{displayedFaqs.length} {t("topik bantuan", "help topics")}</p>
         </div>
-        <FAQAccordion items={faqs} />    </div>
+        <FAQAccordion items={displayedFaqs} />    </div>
     </section>
 
     <section className="border-y border-[#dce5f0] bg-[#f7fafd]">
       <div className="mx-auto grid max-w-[1232px] gap-6 px-4 py-10 sm:grid-cols-3 sm:px-6 lg:px-8">
-        {quickFacts.map((fact,index)=><div key={fact.value} className={"flex items-center gap-4 "+(index>0?"sm:border-l sm:border-[#d2ddea] sm:pl-7":"")}>
+        {(locale === "en" ? [{ value: "50%", label: "Deposit to confirm a booking" }, { value: "24 hours", label: "Payment deadline before pickup" }, { value: "100%", label: "Refund if RentGo cancels" }] : quickFacts).map((fact,index)=><div key={fact.value} className={"flex items-center gap-4 "+(index>0?"sm:border-l sm:border-[#d2ddea] sm:pl-7":"")}>
           <strong className="text-2xl font-bold tracking-[-0.03em] text-[#1346a0]">{fact.value}</strong><p className="max-w-[190px] text-sm leading-6 text-[#526176]">{fact.label}</p>
         </div>)}
       </div>

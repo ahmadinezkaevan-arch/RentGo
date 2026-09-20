@@ -129,3 +129,18 @@ export const vehicleCatalog: VehicleDetail[] = [
 export function getVehicleBySlug(slug: string) {
   return vehicleCatalog.find((vehicle) => vehicle.slug === slug);
 }
+
+const vehicleEnglish: Record<string, string> = {
+  "Tahun 2023": "Year 2023", "Tahun 2022": "Year 2022", "Tahun 2021": "Year 2021", "MPV Keluarga": "Family MPV", "Motor Matic": "Automatic Motorcycle", "Bensin": "Gasoline", "2 Koper Besar": "2 large suitcases", "1 Koper Sedang": "1 medium suitcase", "Bagasi Helm": "Helmet storage", "3 Koper Sedang": "3 medium suitcases", "7 Kursi": "7 seats", "4 Kursi": "4 seats", "2 Kursi": "2 seats", "Matic": "Automatic", "Tersedia": "Available", "Disewa": "Rented",
+  "Toyota Avanza 2023 adalah pilihan ideal untuk perjalanan keluarga atau grup bisnis. Kabinnya lega, konsumsi bahan bakar efisien, dan unit dirawat rutin agar perjalanan tetap nyaman dan aman.": "The 2023 Toyota Avanza is ideal for family trips or business groups. Its spacious cabin, efficient fuel use, and regular maintenance keep every journey comfortable and safe.",
+  "Honda Brio cocok untuk mobilitas harian di dalam kota. Ukurannya ringkas, lincah untuk parkir, dan tetap nyaman untuk perjalanan singkat bersama keluarga kecil.": "The Honda Brio is well suited to daily city travel. It is compact, easy to park, and comfortable for short trips with a small family.",
+  "Honda Vario 160 praktis untuk perjalanan personal dan mobilitas cepat. Motor ini hemat, responsif, dan mudah digunakan untuk aktivitas harian.": "The Honda Vario 160 is practical for personal trips and quick mobility. It is efficient, responsive, and easy to use every day.",
+  "Mitsubishi Xpander memberi ruang kabin lapang untuk keluarga dan perjalanan rombongan. Suspensinya nyaman untuk rute perkotaan maupun perjalanan antarkota.": "The Mitsubishi Xpander offers a spacious cabin for families and group travel, with comfortable suspension for city and intercity routes.",
+  "AC dingin dengan double blower": "Cold AC with double blower", "Sistem audio Bluetooth/USB": "Bluetooth/USB audio system", "Asuransi kendaraan all risk": "Comprehensive vehicle insurance", "Perlengkapan P3K dasar": "Basic first-aid kit", "AC kabin cepat dingin": "Fast-cooling cabin AC", "Head unit Bluetooth/USB": "Bluetooth/USB head unit", "Sensor parkir belakang": "Rear parking sensors", "Unit bersih dan siap jalan": "Clean and road-ready unit", "Bagasi luas": "Spacious storage", "Rem responsif": "Responsive brakes", "Konsumsi BBM hemat": "Efficient fuel consumption", "Helm standar tersedia": "Standard helmet included", "AC double blower": "Double-blower AC", "Kabin lega": "Spacious cabin", "Bagasi fleksibel": "Flexible luggage space"
+};
+
+export function localizeVehicle(vehicle: VehicleDetail, locale: "id" | "en") {
+  if (locale === "id") return vehicle;
+  const translated = (value: string) => vehicleEnglish[value] ?? value;
+  return { ...vehicle, yearLabel: translated(vehicle.yearLabel), category: translated(vehicle.category), fuel: translated(vehicle.fuel), baggage: translated(vehicle.baggage), seats: translated(vehicle.seats), transmission: translated(vehicle.transmission), status: translated(vehicle.status), description: translated(vehicle.description), features: vehicle.features.map(translated) };
+}

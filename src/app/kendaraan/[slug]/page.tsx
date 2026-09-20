@@ -1,10 +1,11 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { getVehicleBySlug, vehicleCatalog } from "@/lib/vehicles";
+import { getVehicleBySlug, localizeVehicle, vehicleCatalog } from "@/lib/vehicles";
+import { getLocale, pick } from "@/lib/i18n";
 
 type VehicleDetailPageProps = {
   params: Promise<{ slug: string }>;
@@ -123,22 +124,21 @@ function formatRupiah(value: number) {
 }
 
 export default async function VehicleDetailPage({ params }: VehicleDetailPageProps) {
-  const { slug } = await params;
-  const vehicle = getVehicleBySlug(slug);
+  const [{ slug }, locale] = await Promise.all([params, getLocale()]);
+  const sourceVehicle = getVehicleBySlug(slug);
 
-  if (!vehicle) {
+  if (!sourceVehicle) {
     notFound();
   }
 
-  const serviceFee = 50000;
-  const rentalDays = 3;
-  const total = vehicle.dailyRate * rentalDays + serviceFee;
+  const vehicle = localizeVehicle(sourceVehicle, locale);
+  const t = (id: string, en: string) => pick(locale, { id, en });
 
   const specs = [
-    { label: "Kapasitas", value: vehicle.seats, icon: "seat" as const },
-    { label: "Transmisi", value: vehicle.transmission, icon: "toolbox" as const },
-    { label: "Bahan Bakar", value: vehicle.fuel, icon: "fuel" as const },
-    { label: "Bagasi", value: vehicle.baggage, icon: "toolbox" as const },
+    { label: t("Kapasitas", "Capacity"), value: vehicle.seats, icon: "seat" as const },
+    { label: t("Transmisi", "Transmission"), value: vehicle.transmission, icon: "toolbox" as const },
+    { label: t("Bahan Bakar", "Fuel"), value: vehicle.fuel, icon: "fuel" as const },
+    { label: t("Bagasi", "Luggage"), value: vehicle.baggage, icon: "toolbox" as const },
   ];
 
   const featureIcons = ["snow", "speaker", "shield", "toolbox"] as const;
@@ -150,7 +150,7 @@ export default async function VehicleDetailPage({ params }: VehicleDetailPagePro
       <section className="mx-auto max-w-[1232px] px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
         <nav className="flex flex-wrap items-center gap-2 text-sm font-semibold text-[#667085]" aria-label="Breadcrumb">
           <Link href="/kendaraan" className="hover:text-[#0E3FA8]">
-            Kendaraan
+            {t("Kendaraan", "Vehicles")}
           </Link>
           <Icon name="chevronRight" className="h-4 w-4" />
           <span className="text-[#132033]">{vehicle.displayName}</span>
@@ -185,7 +185,7 @@ export default async function VehicleDetailPage({ params }: VehicleDetailPagePro
                     {index === 1 ? (
                       <span className="absolute inset-x-0 bottom-5 mx-auto inline-flex w-max items-center gap-2 rounded-lg bg-black/45 px-3 py-2 text-sm font-semibold text-white backdrop-blur">
                         <Icon name="image" className="h-5 w-5" />
-                        +5 Foto
+                        +5 {t("Foto", "Photos")}
                       </span>
                     ) : null}
                   </div>
@@ -197,7 +197,7 @@ export default async function VehicleDetailPage({ params }: VehicleDetailPagePro
               <div>
                 <h1 className="text-4xl font-bold leading-tight text-[#101B2D] sm:text-5xl">{vehicle.displayName}</h1>
                 <p className="mt-3 text-lg font-medium text-[#667085]">
-                  {vehicle.category} â€¢ {vehicle.fuel}
+                  {vehicle.category} • {vehicle.fuel}
                 </p>
               </div>
               <span
@@ -221,10 +221,10 @@ export default async function VehicleDetailPage({ params }: VehicleDetailPagePro
             </div>
 
             <div className="mt-8 border-t border-[#DDE5F0] pt-8">
-              <h2 className="text-2xl font-semibold text-[#132033]">Deskripsi Kendaraan</h2>
+              <h2 className="text-2xl font-semibold text-[#132033]">{t("Deskripsi Kendaraan", "Vehicle Description")}</h2>
               <p className="mt-5 max-w-3xl text-lg leading-8 text-[#5D6677]">{vehicle.description}</p>
 
-              <h3 className="mt-8 text-base font-semibold text-[#132033]">Fitur Termasuk:</h3>
+              <h3 className="mt-8 text-base font-semibold text-[#132033]">{t("Fitur Termasuk:", "Included Features:")}</h3>
               <div className="mt-4 grid gap-4 text-base font-medium text-[#5D6677] sm:grid-cols-2">
                 {vehicle.features.map((feature, index) => (
                   <div key={feature} className="flex items-center gap-3">
@@ -236,9 +236,9 @@ export default async function VehicleDetailPage({ params }: VehicleDetailPagePro
             </div>
 
             <div className="mt-8 rounded-xl border border-[#D5DDEA] bg-white p-6 shadow-sm">
-              <h2 className="text-xl font-semibold text-[#132033]">Syarat Penyewaan</h2>
+              <h2 className="text-xl font-semibold text-[#132033]">{t("Syarat Penyewaan", "Rental Requirements")}</h2>
               <div className="mt-5 grid gap-4 text-base text-[#5D6677] sm:grid-cols-3">
-                {["KTP dan SIM aktif", "DP minimal 50%", "Konfirmasi maksimal 1 jam"].map((requirement) => (
+                {[t("KTP dan SIM aktif", "Valid ID and driving license"), t("DP minimal 50%", "Minimum 50% deposit"), t("Konfirmasi maksimal 1 jam", "Confirmation within 1 hour")].map((requirement) => (
                   <div key={requirement} className="flex items-start gap-3">
                     <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#E3F2FF] text-[#0E3FA8]">
                       <Icon name="check" className="h-4 w-4" />
@@ -254,43 +254,8 @@ export default async function VehicleDetailPage({ params }: VehicleDetailPagePro
             <section className="rounded-xl border border-[#D5DDEA] bg-white p-6 shadow-sm">
               <p className="text-3xl font-semibold text-[#101B2D]">
                 {formatRupiah(vehicle.dailyRate)}
-                <span className="text-base font-semibold text-[#667085]"> / hari</span>
+                <span className="text-base font-semibold text-[#667085]"> / {t("hari", "day")}</span>
               </p>
-
-              <div className="mt-7 grid grid-cols-2 overflow-hidden rounded-lg border border-[#CBD5E1] bg-[#F8FAFE]">
-                {[
-                  ["Mulai", "24 Okt"],
-                  ["Selesai", "27 Okt"],
-                ].map(([label, date]) => (
-                  <div key={label} className="border-r border-[#E1E7F0] px-4 py-4 last:border-r-0">
-                    <p className="text-xs font-semibold text-[#667085]">{label}</p>
-                    <p className="mt-1 flex items-center gap-2 text-base font-semibold text-[#132033]">
-                      <Icon name="calendar" className="h-5 w-5 text-[#132033]" />
-                      {date}
-                    </p>
-                  </div>
-                ))}
-              </div>
-
-              <label className="mt-5 flex items-center gap-3 text-base font-medium text-[#5D6677]">
-                <input type="checkbox" className="h-5 w-5 rounded border-[#C8D0DD] text-[#0E3FA8]" />
-                Tambah Supir (+Rp 200.000/hari)
-              </label>
-
-              <div className="mt-7 rounded-lg bg-[#E8F0FF] p-5 text-base text-[#5D6677]">
-                <div className="flex justify-between gap-4">
-                  <span>{formatRupiah(vehicle.dailyRate)} Ã— {rentalDays} hari</span>
-                  <span className="font-semibold">{formatRupiah(vehicle.dailyRate * rentalDays)}</span>
-                </div>
-                <div className="mt-3 flex justify-between gap-4">
-                  <span>Biaya Layanan</span>
-                  <span className="font-semibold">{formatRupiah(serviceFee)}</span>
-                </div>
-                <div className="mt-4 flex justify-between gap-4 border-t border-[#D1DDF3] pt-4 font-semibold text-[#132033]">
-                  <span>Total</span>
-                  <span className="text-[#0E3FA8]">{formatRupiah(total)}</span>
-                </div>
-              </div>
 
               <Link
                 href={`/checkout/${vehicle.slug}`}
@@ -299,11 +264,11 @@ export default async function VehicleDetailPage({ params }: VehicleDetailPagePro
                 }`}
                 aria-disabled={!vehicle.available}
               >
-                Booking Sekarang
+                {t("Booking Sekarang", "Book Now")}
                 <Icon name="chevronRight" className="h-5 w-5" />
               </Link>
 
-              <p className="mt-5 text-center text-sm font-medium text-[#667085]">Belum ada biaya yang dibebankan.</p>
+              <p className="mt-5 text-center text-sm font-medium text-[#667085]">{t("Belum ada biaya yang dibebankan.", "No charges have been applied yet.")}</p>
             </section>
           </aside>
         </div>
