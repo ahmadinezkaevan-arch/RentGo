@@ -310,8 +310,8 @@ export default async function AboutPage() {
     <main>
       <SiteHeader activePage="tentang" />
       <Hero locale={locale} />
-      <Story locale={locale} />
       <Stats locale={locale} />
+      <Story locale={locale} />
       <VisionMission locale={locale} />
       <Values locale={locale} />
       <Trust locale={locale} />

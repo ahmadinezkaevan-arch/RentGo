@@ -1,2 +1,5 @@
-import { AdminWorkspace } from "@/components/admin-workspace";
-export default function AdminBookingsPage() { return <AdminWorkspace section="pemesanan" />; }
+import { AdminDataPage } from "@/components/admin-data-page";
+
+export default function AdminBookingsPage() {
+  return <AdminDataPage section="pemesanan" />;
+}

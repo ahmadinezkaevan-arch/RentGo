@@ -9,6 +9,10 @@ function textValue(formData: FormData, key: string) {
   return typeof value === "string" ? value.trim() : "";
 }
 
+function safeNextPath(value: string) {
+  return value.startsWith("/") && !value.startsWith("//") ? value : null;
+}
+
 function errorRedirect(path: "/login" | "/register", code: string): never {
   redirect(`${path}?error=${code}`);
 }
@@ -16,6 +20,7 @@ function errorRedirect(path: "/login" | "/register", code: string): never {
 export async function login(formData: FormData) {
   const email = textValue(formData, "email").toLowerCase();
   const password = textValue(formData, "password");
+  const nextPath = safeNextPath(textValue(formData, "next"));
 
   if (!email || !password) errorRedirect("/login", "missing-fields");
 
@@ -28,7 +33,7 @@ export async function login(formData: FormData) {
     await prisma.user.update({ where: { id: user.id }, data: { passwordHash: await hashPassword(password) } });
   }
   await createSession(user.id);
-  redirect(user.role === "ADMIN" ? "/admin" : "/profile");
+  redirect(user.role === "ADMIN" ? "/admin" : nextPath ?? "/profile");
 }
 
 export async function register(formData: FormData) {
@@ -36,6 +41,7 @@ export async function register(formData: FormData) {
   const email = textValue(formData, "email").toLowerCase();
   const phone = textValue(formData, "phone");
   const password = textValue(formData, "password");
+  const nextPath = safeNextPath(textValue(formData, "next"));
   const acceptedTerms = formData.get("terms") === "on";
 
   if (name.length < 2 || !/^\S+@\S+\.\S+$/.test(email) || password.length < 8 || !acceptedTerms) {

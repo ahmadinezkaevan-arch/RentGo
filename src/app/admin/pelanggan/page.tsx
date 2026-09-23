@@ -1,2 +1,5 @@
-import { AdminWorkspace } from "@/components/admin-workspace";
-export default function AdminCustomersPage() { return <AdminWorkspace section="pelanggan" />; }
+import { AdminDataPage } from "@/components/admin-data-page";
+
+export default function AdminCustomersPage() {
+  return <AdminDataPage section="pelanggan" />;
+}

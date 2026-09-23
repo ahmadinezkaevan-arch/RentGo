@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
-import Form from "next/form";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { getVehicleBySlug, localizeVehicle, vehicleCatalog } from "@/lib/vehicles";
+import { createBooking } from "@/app/checkout/actions";
+import { getCurrentUser } from "@/lib/auth";
+import { prisma } from "@/lib/db";
 import { getLocale, pick } from "@/lib/i18n";
 
 type CheckoutPageProps = {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ error?: string }>;
 };
-
 type IconName =
   | "bank"
   | "calendar"
@@ -24,13 +25,11 @@ type IconName =
   | "shield"
   | "wallet";
 
-export function generateStaticParams() {
-  return vehicleCatalog.map((vehicle) => ({ slug: vehicle.slug }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: CheckoutPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const vehicle = getVehicleBySlug(slug);
+  const vehicle = await prisma.vehicle.findUnique({ where: { slug }, select: { name: true } });
 
   if (!vehicle) {
     return {
@@ -39,8 +38,8 @@ export async function generateMetadata({ params }: CheckoutPageProps): Promise<M
   }
 
   return {
-    title: `Checkout ${vehicle.displayName} - RentGo`,
-    description: `Lengkapi data booking dan pembayaran untuk menyewa ${vehicle.displayName} di RentGo.`,
+    title: `Checkout ${vehicle.name} - RentGo`,
+    description: `Lengkapi data booking dan pembayaran untuk menyewa ${vehicle.name} di RentGo.`,
   };
 }
 
@@ -127,18 +126,21 @@ function formatRupiah(value: number) {
   }).format(value);
 }
 
-export default async function CheckoutPage({ params }: CheckoutPageProps) {
-  const [{ slug }, locale] = await Promise.all([params, getLocale()]);
-  const sourceVehicle = getVehicleBySlug(slug);
+export default async function CheckoutPage({ params, searchParams }: CheckoutPageProps) {
+  const { slug } = await params;
+  const [query, locale, user, vehicle] = await Promise.all([
+    searchParams,
+    getLocale(),
+    getCurrentUser(),
+    prisma.vehicle.findUnique({ where: { slug }, include: { category: { select: { name: true } } } }),
+  ]);
+  if (!user) redirect(`/login?next=${encodeURIComponent(`/checkout/${slug}`)}`);
+  if (!vehicle || vehicle.status === "INACTIVE") notFound();
 
-  if (!sourceVehicle) {
-    notFound();
-  }
-
-  const vehicle = localizeVehicle(sourceVehicle, locale);
   const t = (id: string, en: string) => pick(locale, { id, en });
+  const available = vehicle.status === "AVAILABLE";
   const rentalDays = 3;
-  const serviceFee = 50000;
+  const serviceFee = 0;
   const driverFee = 0;
   const discount = 0;
   const subtotal = vehicle.dailyRate * rentalDays;
@@ -155,14 +157,15 @@ export default async function CheckoutPage({ params }: CheckoutPageProps) {
           </Link>
           <Icon name="chevronRight" className="h-4 w-4" />
           <Link href={`/kendaraan/${vehicle.slug}`} className="hover:text-[#0E3FA8]">
-            {vehicle.displayName}
+            {vehicle.name}
           </Link>
           <Icon name="chevronRight" className="h-4 w-4" />
           <span className="text-[#132033]">Checkout</span>
         </nav>
 
-        <Form action={`/payment/${vehicle.slug}`} className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_25rem]">
-          <input type="hidden" name="location" value="RentGo Cabang Bandung" />
+        <form action={createBooking} className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_25rem]">
+          <input type="hidden" name="vehicleSlug" value={vehicle.slug} />
+          {query.error ? <p role="alert" className="lg:col-span-2 rounded-lg border border-[#F6C5CB] bg-[#FDE5E7] px-4 py-3 text-sm font-medium text-[#B42318]">{query.error === "date-unavailable" ? t("Kendaraan sudah dipesan pada rentang tanggal tersebut. Pilih jadwal lain.", "This vehicle is already booked for that date range. Choose another schedule.") : query.error === "phone-in-use" ? t("Nomor HP ini sudah digunakan oleh akun lain.", "This phone number is already used by another account.") : query.error === "vehicle-unavailable" ? t("Kendaraan saat ini tidak tersedia untuk dipesan.", "This vehicle is currently unavailable for booking.") : t("Lengkapi data pemesanan dengan benar.", "Complete the booking details correctly.")}</p> : null}
           <section className="overflow-hidden rounded-xl border border-[#D5DDEA] bg-white p-5 shadow-sm sm:p-6">
             <section>
               <h2 className="text-xl font-semibold text-[#132033]">{t("Informasi Pemesanan", "Booking Information")}</h2>
@@ -204,15 +207,15 @@ export default async function CheckoutPage({ params }: CheckoutPageProps) {
               <div className="mt-5 grid gap-4 md:grid-cols-2">
                 <label className="block">
                   <span className="text-sm font-semibold text-[#344054]">{t("Nama Lengkap", "Full Name")}</span>
-                  <input className="mt-2 h-12 w-full rounded-lg border border-[#C8D0DD] bg-white px-4 text-base outline-none focus:border-[#0E3FA8]" name="fullName" defaultValue="Ahmadinezka Evan Juanurifiki" required />
+                  <input className="mt-2 h-12 w-full rounded-lg border border-[#C8D0DD] bg-white px-4 text-base outline-none focus:border-[#0E3FA8]" name="fullName" defaultValue={user.name} required />
                 </label>
                 <label className="block">
                   <span className="text-sm font-semibold text-[#344054]">{t("Nomor HP", "Phone Number")}</span>
-                  <input className="mt-2 h-12 w-full rounded-lg border border-[#C8D0DD] bg-white px-4 text-base outline-none focus:border-[#0E3FA8]" name="phone" defaultValue="0812-3456-7890" required />
+                  <input className="mt-2 h-12 w-full rounded-lg border border-[#C8D0DD] bg-white px-4 text-base outline-none focus:border-[#0E3FA8]" name="phone" defaultValue={user.phone ?? ""} required />
                 </label>
                 <label className="block md:col-span-2">
                   <span className="text-sm font-semibold text-[#344054]">Email</span>
-                  <input className="mt-2 h-12 w-full rounded-lg border border-[#C8D0DD] bg-white px-4 text-base outline-none focus:border-[#0E3FA8]" type="email" name="email" defaultValue="evan@rentgo.co.id" required />
+                  <input className="mt-2 h-12 w-full rounded-lg border border-[#C8D0DD] bg-white px-4 text-base outline-none focus:border-[#0E3FA8]" type="email" name="email" defaultValue={user.email} readOnly />
                 </label>
               </div>
               <div className="mt-5 flex items-start gap-3 rounded-lg bg-[#EEF5FF] p-4 text-sm font-medium text-[#4B5565]">
@@ -226,22 +229,21 @@ export default async function CheckoutPage({ params }: CheckoutPageProps) {
             <section className="overflow-hidden rounded-xl border border-[#D5DDEA] bg-white shadow-sm">
               <div className="relative h-52 bg-[#E7EEF8]">
                 <Image
-                  src="/rentgo-hero.png"
-                  alt={`${vehicle.displayName} untuk checkout`}
+                  src={vehicle.imageUrl ?? "/rentgo-hero.png"}
+                  alt={`${vehicle.name} untuk checkout`}
                   fill
                   sizes="(min-width: 1024px) 25rem, 100vw"
-                  className={`object-cover ${vehicle.available ? "" : "grayscale"}`}
-                  style={{ objectPosition: vehicle.imagePosition }}
+                  className={`object-cover ${available ? "" : "grayscale"}`}
                 />
               </div>
 
               <div className="p-5 sm:p-6">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <h2 className="text-2xl font-semibold leading-tight text-[#132033]">{vehicle.displayName}</h2>
-                    <p className="mt-1 text-sm font-medium text-[#667085]">{vehicle.category} - {vehicle.transmission}</p>
+                    <h2 className="text-2xl font-semibold leading-tight text-[#132033]">{vehicle.name}</h2>
+                    <p className="mt-1 text-sm font-medium text-[#667085]">{vehicle.category.name} - {vehicle.transmission}</p>
                   </div>
-                  <span className={`rounded-full px-3 py-1 text-xs font-semibold ${vehicle.available ? "bg-[#DDF8E7] text-[#147C4C]" : "bg-[#FDE5E7] text-[#C74A58]"}`}>
+                  <span className={`rounded-full px-3 py-1 text-xs font-semibold ${available ? "bg-[#DDF8E7] text-[#147C4C]" : "bg-[#FDE5E7] text-[#C74A58]"}`}>
                     {vehicle.status}
                   </span>
                 </div>
@@ -286,7 +288,7 @@ export default async function CheckoutPage({ params }: CheckoutPageProps) {
 
                 <button
                   type="submit"
-                  disabled={!vehicle.available}
+                  disabled={!available}
                   className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-[#0E3FA8] px-5 py-4 text-base font-semibold text-white disabled:bg-[#AEB8C8]"
                 >
                   {t("Lanjut ke Pembayaran", "Continue to Payment")}
@@ -297,7 +299,7 @@ export default async function CheckoutPage({ params }: CheckoutPageProps) {
               </div>
             </section>
           </aside>
-        </Form>
+        </form>
       </section>
 
       <SiteFooter />

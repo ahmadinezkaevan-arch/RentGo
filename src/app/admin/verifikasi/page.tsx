@@ -1,2 +1,5 @@
-import { AdminWorkspace } from "@/components/admin-workspace";
-export default function AdminVerificationPage() { return <AdminWorkspace section="verifikasi" />; }
+import { AdminDataPage } from "@/components/admin-data-page";
+
+export default function AdminVerificationPage() {
+  return <AdminDataPage section="verifikasi" />;
+}
